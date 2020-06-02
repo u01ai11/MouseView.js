@@ -25,8 +25,9 @@
     mouseview.params.apertureEdge = 'solid' // TODO: provide some options for edge 
     
     // parameters for the overlay
-    mouseview.params.overlayColour = '#17202A' //i.e. hex black 
-    mouseview.params.overlayAlpha = 0.9 // how transparent the overlay will be
+    mouseview.params.overlayColour = '#17202A' //i.e. hex black
+    mouseview.params.overlayAlpha = 0.99 // how transparent the overlay will be
+    mouseview.params.overlayGaussian = 0 // SD in pixels for the gaussian blur filter NOT WORKING, will blur everything under div
     
     // parameters for tracking 
     mouseview.params.sampleRate = 100 // sample rate in Hz for recording position
@@ -47,8 +48,8 @@
         */
     
         // Append overlay with settings
-        mouseview.params.overWidth = window.visualViewport.width
-        mouseview.params.overHeight = window.visualViewport.height; // get height and width
+        mouseview.params.overWidth = window.innerWidth
+        mouseview.params.overHeight = window.innerHeight; // get height and width
 
         // make a canvas overlay, so we can use rAF to animate and record accurate times
         var overlay = document.createElement('canvas') // create canvas element 
@@ -60,11 +61,7 @@
         overlay.style.zIndex = 2;
         overlay.style.position = 'absolute';
         
-        // Initial context settings (e.g. color )
-        var ctx = overlay.getContext("2d");
-        ctx.fillStyle = mouseview.params.overlayColour;
-        ctx.globalAlpha = mouseview.params.overlayAlpha;
-        ctx.fillRect(0, 0, mouseview.params.overWidth, mouseview.params.overHeight);
+
         
         // set mouse listener to update position on mouse move
         overlay.addEventListener('mousemove', event => {
@@ -72,8 +69,47 @@
             mouseview.datalogger.y = event.clientY;
         }, false);
         
+        // add event listeners for touch-screen
+        // TODO: handle multiple touches at the same time, at the moment we just take first in list
+        overlay.addEventListener('touchstart', event => {
+            mouseview.datalogger.x = event.touches[0].clientX;
+            mouseview.datalogger.y = event.touches[0].clientY;
+        }, false);
+        
+        overlay.addEventListener('touchmove', event => {
+            mouseview.datalogger.x = event.touches[0].clientX;
+            mouseview.datalogger.y = event.touches[0].clientY;
+        }, false);
+        
         //append to body 
         document.body.appendChild(overlay)
+        
+        // make SVG layers for gaussian filter
+        var svg_layer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg_layer.setAttribute('height',0)
+        var filter_main = document.createElementNS("http://www.w3.org/2000/svg","filter"); // make main filter a container
+        filter_main.setAttribute('id', 'blur_filter') //set id of filter container
+        var fe_gaus =  document.createElementNS("http://www.w3.org/2000/svg","feGaussianBlur"); // gaussian blur overlay within the filter
+        fe_gaus.setAttribute('stdDeviation',mouseview.params.overlayGaussian) // set SD of gausian blur 
+        filter_main.appendChild(fe_gaus) // append to filter main
+
+        //append remaining bits to svg code   
+        svg_layer.appendChild(filter_main) // append the filter to svg code
+        document.body.appendChild(svg_layer) // append to body
+        
+        //now we create a floating div and set it to use the filter
+        var div = document.createElement("div");
+        div.style.width = "100%";
+        div.style.height = "100%";
+        div.style.position = "fixed"
+        
+        // TO DO: backdrop filter is a new thing, compatibility may be an issue
+        div.setAttribute('style', div.getAttribute('style') +'backdrop-filter: url(#blur_filter)')
+        
+        //use backdrop filter to cover
+        document.body.append(div)
+        // set event listener for resize 
+        window.addEventListener('resize', updateOverlayCanvas);
         
         //
         updateFrame()
@@ -85,7 +121,9 @@
     // this will be called using rAF callback
     function updateFrame(){
         //console.log([mouseview.datalogger.x, mouseview.datalogger.y])
-        var ctx = document.getElementById('overlay').getContext('2d');
+        var overlay = document.getElementById('overlay')
+        //overlay.style.setProperty('backdrop-filter',"blur(" + mouseview.params.overlayGaussian + "px)") //blurs everything
+        var ctx = overlay.getContext('2d');
         
         //clear previous frame
         ctx.clearRect(0, 0, mouseview.params.overWidth, mouseview.params.overHeight)
@@ -119,8 +157,12 @@
     function updateOverlayCanvas(){
         
         var overlay = document.getElementById("overlay")
-        overlay.width = docWidth
-        overlay.height = docHeight
+        mouseview.params.overWidth = window.innerWidth
+        mouseview.params.overHeight = window.innerHeight; // get height and width
+
+        // set overlay
+        overlay.width = mouseview.params.overWidth
+        overlay.height = mouseview.params.overHeight
         
     }
     
