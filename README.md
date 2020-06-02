@@ -5,7 +5,7 @@ Demo available [here](https://mouseview.netlify.app/demo.html)
 
 # Getting Started
 
-MouseView.js is designed to inject a layer over a webpage. Simply include the script on your website in your <head>.
+MouseView.js is designed to inject a layer over a webpage. Simply include the script on in your websites head tag.
  
 The most up-to-date one is hosted on netlify:
 ```HTML
