@@ -48,8 +48,8 @@
         */
     
         // Append overlay with settings
-        mouseview.params.overWidth = window.innerWidth
-        mouseview.params.overHeight = window.innerHeight; // get height and width
+        mouseview.params.overWidth = document.documentElement.scrollWidth
+        mouseview.params.overHeight = document.documentElement.scrollHeight; // get height and width
 
         // make a canvas overlay, so we can use rAF to animate and record accurate times
         var overlay = document.createElement('canvas') // create canvas element 
@@ -62,6 +62,7 @@
         overlay.style.position = 'absolute';
         
 
+        //TODO: deal with scrolling offset 
         
         // set mouse listener to update position on mouse move
         overlay.addEventListener('mousemove', event => {
@@ -157,8 +158,8 @@
     function updateOverlayCanvas(){
         
         var overlay = document.getElementById("overlay")
-        mouseview.params.overWidth = window.innerWidth
-        mouseview.params.overHeight = window.innerHeight; // get height and width
+        mouseview.params.overWidth = document.documentElement.scrollWidth
+        mouseview.params.overHeight = document.documentElement.scrollHeight; // get height and width
 
         // set overlay
         overlay.width = mouseview.params.overWidth
