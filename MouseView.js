@@ -36,6 +36,11 @@
     mouseview.params.overHeight = mouseview.params.overHeight || window.visualViewport.height
     mouseview.params.overWidth = mouseview.params.overHeight || window.visualViewport.width 
     
+    //holders for mouse offset due to scrolling
+    mouseview.params.offset = {}
+    mouseview.params.offset.X = 0
+    mouseview.params.offset.Y = 0
+    
     // holders for mouseposition
     mouseview.datalogger.x = null
     mouseview.datalogger.y = null
@@ -66,20 +71,20 @@
         
         // set mouse listener to update position on mouse move
         overlay.addEventListener('mousemove', event => {
-            mouseview.datalogger.x = event.clientX;
-            mouseview.datalogger.y = event.clientY;
+            mouseview.datalogger.x = event.clientX - mouseview.params.offset.X;
+            mouseview.datalogger.y = event.clientY - mouseview.params.offset.Y;
         }, false);
         
         // add event listeners for touch-screen
         // TODO: handle multiple touches at the same time, at the moment we just take first in list
         overlay.addEventListener('touchstart', event => {
-            mouseview.datalogger.x = event.touches[0].clientX;
-            mouseview.datalogger.y = event.touches[0].clientY;
+            mouseview.datalogger.x = event.touches[0].clientX - mouseview.params.offset.X;
+            mouseview.datalogger.y = event.touches[0].clientY - mouseview.params.offset.Y;
         }, false);
         
         overlay.addEventListener('touchmove', event => {
-            mouseview.datalogger.x = event.touches[0].clientX;
-            mouseview.datalogger.y = event.touches[0].clientY;
+            mouseview.datalogger.x = event.touches[0].clientX - mouseview.params.offset.X;
+            mouseview.datalogger.y = event.touches[0].clientY - mouseview.params.offset.Y;
         }, false);
         
         //append to body 
@@ -109,10 +114,10 @@
         
         //use backdrop filter to cover
         document.body.append(div)
-        // set event listener for resize 
+        // set event listener for resize and scroll
         window.addEventListener('resize', updateOverlayCanvas);
+        window.addEventListener('scroll', updateOverlayCanvas);
         
-        //
         updateFrame()
     }
     
@@ -165,6 +170,10 @@
         overlay.width = mouseview.params.overWidth
         overlay.height = mouseview.params.overHeight
         
+        // recalculate offset
+        var BB=overlay.getBoundingClientRect();
+        mouseview.params.offset.X = BB.left
+        mouseview.params.offset.Y = BB.top
     }
     
    // Start tracking the mouse movements
