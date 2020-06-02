@@ -1,11 +1,13 @@
 # MouseView.js
- Attentional mouse tracking. Alternative to online eye tracking.
+Attentional mouse tracking. Alternative to online eye tracking.
+
+This is very much a work in progress, so please **don't use this in production** yet. You have been warned.
 
 Demo available [here](https://mouseview.netlify.app/demo.html)
 
 # Getting Started
 
-MouseView.js is designed to inject a layer over a webpage. Simply include the script on in your websites head tag.
+MouseView.js is designed to inject a layer over a webpage. Simply include the script on in your websites **body** tag.
  
 The most up-to-date one is hosted on netlify:
 ```HTML
