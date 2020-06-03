@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/u01ai11/MouseView.js#readme",
   "devDependencies": {
-    "eslint": "^3.13.1",
+    "eslint": "^7.1.0",
     "eslint-config-mourner": "^2.0.1",
     "simpleheat":"^0.4.0"
   },
