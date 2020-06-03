@@ -53,8 +53,8 @@
         */
     
         // Append overlay with settings
-        mouseview.params.overWidth = document.documentElement.scrollWidth
-        mouseview.params.overHeight = document.documentElement.scrollHeight; // get height and width
+        mouseview.params.overWidth = document.body.clientWidth
+        mouseview.params.overHeight = document.body.clientHeight; // get height and width
 
         // make a canvas overlay, so we can use rAF to animate and record accurate times
         var overlay = document.createElement('canvas') // create canvas element 
@@ -63,26 +63,29 @@
         overlay.id = "overlay";
         overlay.width = mouseview.params.overWidth
         overlay.height = mouseview.params.overHeight
-        overlay.style.zIndex = 2;
-        overlay.style.position = 'absolute';
+        overlay.style.zIndex = 99999;
+        overlay.style.position = 'fixed';
+        overlay.style.display = 'block';
+        overlay.style.top = '0px'
+        overlay.style.pointerEvents = 'none'
         
 
         //TODO: deal with scrolling offset 
         
         // set mouse listener to update position on mouse move
-        overlay.addEventListener('mousemove', event => {
+        document.body.addEventListener('mousemove', event => {
             mouseview.datalogger.x = event.clientX - mouseview.params.offset.X;
             mouseview.datalogger.y = event.clientY - mouseview.params.offset.Y;
         }, false);
         
         // add event listeners for touch-screen
         // TODO: handle multiple touches at the same time, at the moment we just take first in list
-        overlay.addEventListener('touchstart', event => {
+        document.body.addEventListener('touchstart', event => {
             mouseview.datalogger.x = event.touches[0].clientX - mouseview.params.offset.X;
             mouseview.datalogger.y = event.touches[0].clientY - mouseview.params.offset.Y;
         }, false);
         
-        overlay.addEventListener('touchmove', event => {
+        document.body.addEventListener('touchmove', event => {
             mouseview.datalogger.x = event.touches[0].clientX - mouseview.params.offset.X;
             mouseview.datalogger.y = event.touches[0].clientY - mouseview.params.offset.Y;
         }, false);
@@ -117,6 +120,7 @@
         // set event listener for resize and scroll
         window.addEventListener('resize', updateOverlayCanvas);
         window.addEventListener('scroll', updateOverlayCanvas);
+        window.addEventListener('orientationchange', updateOverlayCanvas);
         
         updateFrame()
     }
@@ -163,8 +167,8 @@
     function updateOverlayCanvas(){
         
         var overlay = document.getElementById("overlay")
-        mouseview.params.overWidth = document.documentElement.scrollWidth
-        mouseview.params.overHeight = document.documentElement.scrollHeight; // get height and width
+        mouseview.params.overWidth = overlay.parentNode.getBoundingClientRect().width
+        mouseview.params.overHeight = overlay.parentNode.getBoundingClientRect().height // get height and width
 
         // set overlay
         overlay.width = mouseview.params.overWidth
