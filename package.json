@@ -8,7 +8,7 @@
       "/dependencies"
   ],
   "scripts": {
-    "test": "eslint MouseView.js"
+    "test": "MouseView.js"
   },
   "repository": {
     "type": "git",
@@ -28,11 +28,6 @@
     "url": "https://github.com/u01ai11/MouseView.js/issues"
   },
   "homepage": "https://github.com/u01ai11/MouseView.js#readme",
-  "devDependencies": {
-    "eslint": "^3.13.1",
-    "eslint-config-mourner": "^2.0.1",
-    "simpleheat":"^0.4.0"
-  },
     "dependencies":{
         "simpleheat":"^0.4.0"
     },

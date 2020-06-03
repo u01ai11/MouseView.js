@@ -32,11 +32,11 @@ if (typeof module !== 'undefined'){
 }
 
 
-
+(function(window, undefined) {
     'use strict'; // for type safety
     
     // do this for node
-    if (typeof module !== 'undefined'){ window = window_holder; var mouseview = {};}
+    if (typeof module !== 'undefined'){ window = window_holder; }
     
     
     //set up namespace 
@@ -306,12 +306,15 @@ if (typeof module !== 'undefined'){
         mouseview.datalogger.data.push(window.location.pathname) // add pathname to end of data
     }
     
+    function clearData(){
+        mouseview.datalogger.data = []
+    }
+    
     // plot a heatmap of the x and y coordinates
     function plotHeatMap(){
         
         // remove old heatmap if there
-        var overlay = document.getElementById('heatmap');
-        if(overlay !== null) {overlay.parentNode.removeChild(overlay)}
+        clearHeatmap()
         
         // Append overlay with settings
         mouseview.params.overWidth = document.body.clientWidth
@@ -343,6 +346,12 @@ if (typeof module !== 'undefined'){
         window.simpleheat(overlay).data(formattedArray).draw()
     }
     
+    function clearHeatmap(){
+        var overlay = document.getElementById('heatmap');
+        if(overlay !== null) {overlay.parentNode.removeChild(overlay)}
+        
+    }
+    
     // Link specific internal functions to public ones
     mouseview.init = () => {
         init()
@@ -369,6 +378,14 @@ if (typeof module !== 'undefined'){
     mouseview.plotHeatMap = () => {
         plotHeatMap()
     }
+    
+    mouseview.clearHeatMap = () => {
+        clearHeatmap()
+    }
+    
+    mouseview.clearData = () => {
+        clearData()
+    }
     // Setters 
     
     //some stuff for Node
@@ -376,5 +393,5 @@ if (typeof module !== 'undefined'){
     if (typeof module !== 'undefined'){ module.exports = mouseview};
 
 
-
+}(window));
 

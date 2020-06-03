@@ -51,11 +51,33 @@
                     $('#start').prop('disabled', false) // enable start again
                     $('#stop').prop('disabled', true) // disable self
                     $('#show').prop('disabled', false) // allow show data button
+                    $('#clear').prop('disabled', false)
                 })
                 
-                                //stop button jQuery
+                //stop button jQuery
                 $('#show').click(() => {
                     mouseview.plotHeatMap()
+                    $('#hide').prop('disabled', false)
+                    $('#show').prop('disabled', true)
+                })
+                
+                //stop button jQuery
+                $('#hide').click(() => {
+                    mouseview.clearHeatMap()
+                    $('#hide').prop('disabled', true)
+                    $('#show').prop('disabled', false)
+                })
+                
+                //stop button jQuery
+                $('#clear').click(() => {
+                    mouseview.stopTracking()
+                    mouseview.clearData()
+                    mouseview.clearHeatMap()
+                    $('#stop').prop('disabled', true) 
+                    $('#start').prop('disabled', false) 
+                    $('#hide').prop('disabled', true)
+                    $('#show').prop('disabled', true)
+                    $('#clear').prop('disabled', true)
                 })
                 
             }
@@ -64,32 +86,37 @@
     </head> 
     <body> 
         
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 999990">
-      <a class="navbar-brand">MouseView.js Demo</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 9999999">
+
         <ul class="navbar-nav">
           <li class="nav-item active">
-              <label class="btn btn-lg btn-primary active" >
+              <label class="btn btn-primary active" >
                 <input type="checkbox" id="overlay_toggle"> Overlay
               </label>
               
           </li>
           <li class="nav-item active">
-             <button type="button" class="btn btn-lg btn-primary" disabled id="start">Start Recording</button>
+             <button type="button" class="btn btn-primary" disabled id="start">Start Recording</button>
           </li>
 
           <li class="nav-item active">
-              <button type="button" class="btn btn-lg btn-primary" disabled id="stop">Stop Recording</button>
+              <button type="button" class="btn btn-primary" disabled id="stop">Stop Recording</button>
           </li>
 
           <li class="nav-item active">
-              <button type="button" class="btn btn-lg btn-primary" disabled id="show">Show Data</button>
+              <button type="button" class="btn  btn-primary" disabled id="show">Show Heatmap</button>
           </li>
+            
+          <li class="nav-item active">
+              <button type="button" class="btn btn-primary" disabled id="hide">Hide Heatmap</button>
+          </li>
+            
+          <li class="nav-item active">
+              <button type="button" class="btn btn-primary" disabled id="clear">Clear Data</button>
+          </li>
+
         </ul>
-      </div>
+<a class="navbar-brand" href="https://github.com/u01ai11/MouseView.js">MouseView.js</a>
     </nav>
         
         <img class= "one" src="resources/cat_and_dog.jpeg" style = "height: 100%; width: 100%; ">
