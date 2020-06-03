@@ -1,0 +1,40 @@
+{
+  "name": "mouseviewjs",
+  "version": "0.1.0",
+  "description": "* MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments ",
+  "main": "MouseView.js",
+  "scripts": {
+    "test": "eslint MouseView.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/u01ai11/MouseView.js.git"
+  },
+  "keywords": [
+    "UX",
+    "Research",
+    "Mouse",
+    "Tracking",
+    "Scientific",
+    "Research"
+  ],
+  "author": "Alexander Anwyl-Irvine <Alexander.Irvine@mrc-cbu.cam.ac.uk> (www.irvine.science)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/u01ai11/MouseView.js/issues"
+  },
+  "homepage": "https://github.com/u01ai11/MouseView.js#readme",
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-mourner": "^2.0.1",
+    "simpleheat":"^0.4.0"
+  },
+  "eslintConfig": {
+    "extends": "mourner",
+    "rules": {
+      "new-cap": 0,
+      "consistent-return": 0
+    }
+  }
+
+}

@@ -4,7 +4,14 @@
 * MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments 
 * It overlays a configurable occlusion layer with a viewing window that tracks the mouse position
 * This allows you to track the temporal and spatial aspects of a web-users attention on a web-page or experiment. 
+
+* The heatmap function is built on simpleheat.js (Copyright (c) 2015, Vladimir Agafonkin) https://github.com/mourner/simpleheat
 */
+
+//for the module
+if (typeof module !== 'undefined') module.exports = mouseview;
+
+import simpleheatES6 from './dependencies/simpleheat.js';
 
 (function(window, undefined) {
     'use strict'; // for type safety
@@ -114,6 +121,7 @@
         
         //now we create a floating div and set it to use the filter
         var div = document.createElement("div");
+        div.id = 'blur_layer'
         div.style.width = "100%";
         div.style.height = "100%";
         div.style.position = "fixed"
@@ -131,7 +139,44 @@
         updateFrame()
     }
     
-    
+    function removeAll(){
+        
+        // stop recording
+        if (mouseview.datalogger.tracking === true){
+            mouseview.stopTracking()
+        }
+        
+        // stop animation
+        var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+        cancelAnimationFrame(mouseview.animator_raf)
+        
+        // remove elements
+        var overlay = document.getElementById('overlay');
+        overlay.parentNode.removeChild(overlay)
+        var blur = document.getElementById('blur_layer');
+        blur.parentNode.removeChild(blur)
+        
+        //remove listeners form body and window
+        window.removeEventListener('resize', updateOverlayCanvas);
+        window.removeEventListener('scroll', updateOverlayCanvas);
+        window.removeEventListener('orientationchange', updateOverlayCanvas);
+        
+        document.removeEventListener('mousemove', event => {
+            mouseview.datalogger.x = event.clientX - mouseview.params.offset.X;
+            mouseview.datalogger.y = event.clientY - mouseview.params.offset.Y;
+        }, false);
+        
+        // add event listeners for touch-screen
+        document.removeEventListener('touchstart', event => {
+            mouseview.datalogger.x = event.touches[0].clientX - mouseview.params.offset.X;
+            mouseview.datalogger.y = event.touches[0].clientY - mouseview.params.offset.Y;
+        }, false);
+        
+        document.removeEventListener('touchmove', event => {
+            mouseview.datalogger.x = event.touches[0].clientX - mouseview.params.offset.X;
+            mouseview.datalogger.y = event.touches[0].clientY - mouseview.params.offset.Y;
+        }, false);
+    }
     
     // function to deal with stuff at the animation frame level
     // this will be called using rAF callback
@@ -236,11 +281,50 @@
         mouseview.datalogger.data.push(window.location.pathname) // add pathname to end of data
     }
     
-    // Public functions
+    // plot a heatmap of the x and y coordinates
+    function plotHeatMap(){
+        
+        // remove old heatmap if there
+        var overlay = document.getElementById('heatmap');
+        if(overlay !== null) {overlay.parentNode.removeChild(overlay)}
+        
+        // Append overlay with settings
+        mouseview.params.overWidth = document.body.clientWidth
+        mouseview.params.overHeight = document.body.clientHeight; // get height and width
+
+        // make a canvas overlay, so we can use rAF to animate and record accurate times
+        var overlay = document.createElement('canvas') // create canvas element 
+        
+        //set settings 
+        overlay.id = "heatmap";
+        overlay.width = mouseview.params.overWidth
+        overlay.height = mouseview.params.overHeight
+        overlay.style.zIndex = 999999;
+        overlay.style.position = 'fixed';
+        overlay.style.display = 'block';
+        overlay.style.top = '0px'
+        overlay.style.pointerEvents = 'none'
+        
+        document.body.appendChild(overlay)// show the layer
+        
+        // get data into expected format for simplheat (list of lists [[x,y,1],....])
+        var formattedArray = []
+        for (var i = 0; i < mouseview.datalogger.data.length; i++) {
+            formattedArray.push([mouseview.datalogger.data[i].x, mouseview.datalogger.data[i].y, 1])
+        }
+        
+        
+        //pass canvas and data to simpleheat
+        simpleheatES6(overlay).data(formattedArray).draw()
+    }
+    
+    // Link specific internal functions to public ones
     mouseview.init = () => {
         init()
     }
-    
+    mouseview.removeAll = () => {
+        removeAll()
+    }
     mouseview.startTracking = () => {
         startTracking()
     }
@@ -256,7 +340,13 @@
     mouseview.getData = () => {
         getData()
     }
-    // Setters 
     
+    mouseview.plotHeatMap = () => {
+        plotHeatMap()
+    }
+    // Setters 
+
     
 }(window));
+
+
