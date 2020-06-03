@@ -1,7 +1,5 @@
 'use strict';
 
-if (typeof module !== 'undefined') module.exports = simpleheat;
-
 const simpleheatES6 = simpleheat
 export default simpleheatES6
 

@@ -1,8 +1,12 @@
 {
   "name": "mouseviewjs",
-  "version": "0.1.0",
-  "description": "* MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments ",
+  "version": "0.1.13",
+  "description": "MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments ",
   "main": "MouseView.js",
+  "files":[
+      "MouseView.js",
+      "/dependencies"
+  ],
   "scripts": {
     "test": "eslint MouseView.js"
   },
@@ -29,6 +33,9 @@
     "eslint-config-mourner": "^2.0.1",
     "simpleheat":"^0.4.0"
   },
+    "dependencies":{
+        "simpleheat":"^0.4.0"
+    },
   "eslintConfig": {
     "extends": "mourner",
     "rules": {

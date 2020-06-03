@@ -8,17 +8,42 @@
 * The heatmap function is built on simpleheat.js (Copyright (c) 2015, Vladimir Agafonkin) https://github.com/mourner/simpleheat
 */
 
-//for the module
-if (typeof module !== 'undefined') module.exports = mouseview;
 
-import simpleheatES6 from './dependencies/simpleheat.js';
 
-(function(window, undefined) {
+
+// We could be in a browser or we could be in Node.js
+// We need to import things differently!
+
+// if in node do this
+if (typeof module !== 'undefined'){ 
+    var window_holder = {} // fake a window
+    var simpleheat = require("./dependencies/simpleheat_node.js")
+    window_holder.simpleheat = simpleheat // add to our fake window
+    console.log('in node')
+    // if we are in browser do this
+} else {
+    // we are in browser so ES6 import simpleheat
+    console.log('in browser')
+    // nonsense acrobatics appending to the window
+    // because ES6 modules can't be imported normally in conditionals
+    import('./dependencies/simpleheat_es6.js').then((module) => {
+        window.simpleheat = module.default
+    })
+}
+
+
+
     'use strict'; // for type safety
+    
+    // do this for node
+    if (typeof module !== 'undefined'){ window = window_holder; var mouseview = {};}
+    
     
     //set up namespace 
     window.mouseview = window.mouseview || {};
     mouseview = mouseview || {}
+    
+
     
     // set up name spaces for specific purposes 
     mouseview.datalogger = mouseview.datalogger || {} // for logging data 
@@ -38,8 +63,8 @@ import simpleheatES6 from './dependencies/simpleheat.js';
     
     
     // holders for overlay width and height 
-    mouseview.params.overHeight = mouseview.params.overHeight || window.visualViewport.height
-    mouseview.params.overWidth = mouseview.params.overHeight || window.visualViewport.width 
+    mouseview.params.overHeight = 0
+    mouseview.params.overWidth = 0
     
     //holders for mouse offset due to scrolling
     mouseview.params.offset = {}
@@ -315,7 +340,7 @@ import simpleheatES6 from './dependencies/simpleheat.js';
         
         
         //pass canvas and data to simpleheat
-        simpleheatES6(overlay).data(formattedArray).draw()
+        window.simpleheat(overlay).data(formattedArray).draw()
     }
     
     // Link specific internal functions to public ones
@@ -345,8 +370,11 @@ import simpleheatES6 from './dependencies/simpleheat.js';
         plotHeatMap()
     }
     // Setters 
-
     
-}(window));
+    //some stuff for Node
+    //Stuff so we can be a module as well as browser based
+    if (typeof module !== 'undefined'){ module.exports = mouseview};
+
+
 
 
