@@ -343,7 +343,10 @@ if (typeof module !== 'undefined'){
         
         
         //pass canvas and data to simpleheat
-        window.simpleheat(overlay).data(formattedArray).draw()
+        var heat = window.simpleheat(overlay)
+        heat.data(formattedArray)
+        heat.radius(20,90)
+        heat.draw()
     }
     
     function clearHeatmap(){
