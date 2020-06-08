@@ -5,7 +5,7 @@ This is very much a work in progress, so please **don't use this in production**
 
 Demo available [here](https://mouseview.netlify.app)
 
-<img src="/resources/mouseview_demo.gif" width="250"/>
+<img src="/resources/mouseview_demo.gif" width="350"/>
 
 
 # Getting Started
