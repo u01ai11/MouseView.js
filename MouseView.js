@@ -29,6 +29,14 @@ if (typeof module !== 'undefined'){
     import('./dependencies/simpleheat_es6.js').then((module) => {
         window.simpleheat = module.default
     })
+    
+    import('./dependencies/html2canvas.js').then((module) => {
+        console.log(module)
+        window.html2canvas = module.default
+    })
+    
+    
+    
 }
 
 
@@ -110,6 +118,11 @@ if (typeof module !== 'undefined'){
         overlay.style.top = '0px'
         overlay.style.pointerEvents = 'none'
         
+        // Use html2canvas to get viewport screen shot
+//        window.html2canvas(document.body).then(function(canvas) {
+//            document.body.appendChild(canvas);
+//        });
+//        
         
         // set mouse listener to update position on mouse move
         document.body.addEventListener('mousemove', event => {
@@ -131,31 +144,6 @@ if (typeof module !== 'undefined'){
         //append to body 
         document.body.appendChild(overlay)
         
-        // make SVG layers for gaussian filter
-        var svg_layer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg_layer.setAttribute('height',0)
-        var filter_main = document.createElementNS("http://www.w3.org/2000/svg","filter"); // make main filter a container
-        filter_main.setAttribute('id', 'blur_filter') //set id of filter container
-        var fe_gaus =  document.createElementNS("http://www.w3.org/2000/svg","feGaussianBlur"); // gaussian blur overlay within the filter
-        fe_gaus.setAttribute('stdDeviation',mouseview.params.overlayGaussian) // set SD of gausian blur 
-        filter_main.appendChild(fe_gaus) // append to filter main
-
-        //append remaining bits to svg code   
-        svg_layer.appendChild(filter_main) // append the filter to svg code
-        document.body.appendChild(svg_layer) // append to body
-        
-        //now we create a floating div and set it to use the filter
-        var div = document.createElement("div");
-        div.id = 'blur_layer'
-        div.style.width = "100%";
-        div.style.height = "100%";
-        div.style.position = "fixed"
-        
-        // TO DO: backdrop filter is a new thing, compatibility may be an issue
-        div.setAttribute('style', div.getAttribute('style') +'backdrop-filter: url(#blur_filter)')
-        
-        //use backdrop filter to cover
-        document.body.append(div)
         // set event listener for resize and scroll
         window.addEventListener('resize', updateOverlayCanvas);
         window.addEventListener('scroll', updateOverlayCanvas);
@@ -178,10 +166,9 @@ if (typeof module !== 'undefined'){
         // remove elements
         var overlay = document.getElementById('overlay');
         overlay.parentNode.removeChild(overlay)
-        var blur = document.getElementById('blur_layer');
-        blur.parentNode.removeChild(blur)
+
         
-        //remove listeners form body and window
+        //remove listeners from body and window
         window.removeEventListener('resize', updateOverlayCanvas);
         window.removeEventListener('scroll', updateOverlayCanvas);
         window.removeEventListener('orientationchange', updateOverlayCanvas);
