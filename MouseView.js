@@ -26,16 +26,29 @@ if (typeof module !== 'undefined'){
     console.log('in browser')
     // nonsense acrobatics appending to the window
     // because ES6 modules can't be imported normally in conditionals
-    import('./dependencies/simpleheat_es6.js').then((module) => {
-        window.simpleheat = module.default
-    })
     
-    import('./dependencies/html2canvas.js').then((module) => {
-        console.log(module)
-        window.html2canvas = module.default()
-    })
+    //if we are not being run on the main repo, then get these files from CDN 
+    try {
+        import('./dependencies/simpleheat_es6.js').then((module) => {
+            window.simpleheat = module.default
+        })
+    }catch(err){
+        import('https://mouseview.netlify.app/dependencies/simpleheat_es6.js').then((module) => {
+            window.simpleheat = module.default
+        })
+    }
     
-    
+    try {
+        import('./dependencies/html2canvas.js').then((module) => {
+            console.log(module)
+            window.html2canvas = module.default()
+        })
+    } catch(err) {
+        import('https://mouseview.netlify.app/dependencies/html2canvas.js').then((module) => {
+            console.log(module)
+            window.html2canvas = module.default()
+        })
+    }  
     
 }
 
@@ -257,28 +270,45 @@ if (typeof module !== 'undefined'){
     // this is at the canvas not ctx level 
     function updateOverlayCanvas(){
         
-        //take new screenshot 
+        //if we are doing a blur then recapture -- but avoid as computationally heavier
+        if (mouseview.params.overlayGaussian > 0){
+            updateOverlayBlur()
+        } else {
+            var overlay = document.getElementById("overlay")
+            mouseview.params.overWidth = overlay.parentNode.getBoundingClientRect().width
+            mouseview.params.overHeight = overlay.parentNode.getBoundingClientRect().height // get height and width
+
+            // set overlay
+            overlay.width = mouseview.params.overWidth
+            overlay.height = mouseview.params.overHeight
+
+            // recalculate offset
+            var BB=overlay.getBoundingClientRect();
+            mouseview.params.offset.X = BB.left
+            mouseview.params.offset.Y = BB.top
+        }
+    }
+    
+    function updateOverlayBlur(){
         
-        // Use html2canvas to get viewport screen shot and store in global holder
-        // first get everything in the body other than the overlay 
+        // only update parameters after promise has been done
         window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
             // get canvas and draw 
             mouseview.screen_canvas = canvas
-        })
-        var overlay = document.getElementById("overlay")
-        mouseview.params.overWidth = overlay.parentNode.getBoundingClientRect().width
-        mouseview.params.overHeight = overlay.parentNode.getBoundingClientRect().height // get height and width
+            var overlay = document.getElementById("overlay")
+            mouseview.params.overWidth = overlay.parentNode.getBoundingClientRect().width
+            mouseview.params.overHeight = overlay.parentNode.getBoundingClientRect().height // get height and width
 
-        // set overlay
-        overlay.width = mouseview.params.overWidth
-        overlay.height = mouseview.params.overHeight
-        
-        // recalculate offset
-        var BB=overlay.getBoundingClientRect();
-        mouseview.params.offset.X = BB.left
-        mouseview.params.offset.Y = BB.top
+            // set overlay
+            overlay.width = mouseview.params.overWidth
+            overlay.height = mouseview.params.overHeight
+
+            // recalculate offset
+            var BB=overlay.getBoundingClientRect();
+            mouseview.params.offset.X = BB.left
+            mouseview.params.offset.Y = BB.top
+        })
     }
-    
    // Start tracking the mouse movements
     function startTracking(){
         mouseview.datalogger.tracking = true

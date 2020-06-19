@@ -3,9 +3,9 @@
   "version": "0.1.13",
   "description": "MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments ",
   "main": "MouseView.js",
-  "files":[
-      "MouseView.js",
-      "/dependencies"
+  "files": [
+    "MouseView.js",
+    "/dependencies"
   ],
   "scripts": {
     "test": "MouseView.js"
@@ -28,15 +28,18 @@
     "url": "https://github.com/u01ai11/MouseView.js/issues"
   },
   "homepage": "https://github.com/u01ai11/MouseView.js#readme",
-    "dependencies":{
-        "simpleheat":"^0.4.0"
-    },
+  "dependencies": {
+    "simpleheat": "^0.4.0"
+  },
   "eslintConfig": {
     "extends": "mourner",
     "rules": {
       "new-cap": 0,
       "consistent-return": 0
     }
+  },
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   }
-
 }
