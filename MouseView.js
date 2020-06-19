@@ -78,15 +78,14 @@ if (typeof module !== 'undefined'){
     mouseview.params.apertureEdge = 'solid' // TODO: provide some options for edge 
     
     // parameters for the overlay
-    mouseview.params.overlayColour = '#17202A' //i.e. hex black
-    mouseview.params.overlayAlpha = 0.8 // how transparent the overlay will be
-    mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
+    mouseview.params.overlayColour = 'none' //i.e. hex black
+    mouseview.params.overlayAlpha = 0 // how transparent the overlay will be
+    mouseview.params.overlayGaussian = 5 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
     
     // holder for the screenshot canvas
     mouseview.screen_canvas = {}
     // options for canvas
     mouseview.h2canv_opts = {
-        type: 'view'
     }
     
     // holders for overlay width and height 
@@ -136,10 +135,7 @@ if (typeof module !== 'undefined'){
         overlay.style.display = 'block';
         overlay.style.top = '0px'
         overlay.style.pointerEvents = 'none'
-        overlay.setAttribute('data-html2canvas-ignore','true')
-
-        
-        
+        overlay.setAttribute('data-html2canvas-ignore','true') //so html2canvas doesn't recapture
         
         // set mouse listener to update position on mouse move
         document.body.addEventListener('mousemove', event => {
@@ -166,6 +162,14 @@ if (typeof module !== 'undefined'){
         window.addEventListener('scroll', updateOverlayCanvas);
         window.addEventListener('orientationchange', updateOverlayCanvas);
         
+        //setup options for html2canvs
+        mouseview.h2canv_opts = {	
+            x: window.scrollX,
+            y: window.scrollY,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            logging: true
+        }
 
         // Use html2canvas to get viewport screen shot and store in global holder
         window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
@@ -229,6 +233,16 @@ if (typeof module !== 'undefined'){
             ctx.filter = 'blur('+mouseview.params.overlayGaussian+'px)';
             ctx.globalAlpha = 1;
             ctx.drawImage(mouseview.screen_canvas, 0,0, mouseview.params.overWidth, mouseview.params.overHeight)
+            
+            // only draw aperture if we actually have a mouse position 
+            if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
+                ctx.globalCompositeOperation = 'xor';
+                // TODO use xor compositing to make non-hard edged corners for aperture
+                ctx.beginPath();
+                ctx.arc(mouseview.datalogger.x, mouseview.datalogger.y, mouseview.params.apertureSize, 0, 2 * Math.PI, false);
+                ctx.fill()
+
+            }
         }
        
         //return to source-over compositing
@@ -290,7 +304,14 @@ if (typeof module !== 'undefined'){
     }
     
     function updateOverlayBlur(){
-        
+        //setup options for html2canvs
+        mouseview.h2canv_opts = {	
+            x: window.scrollX,
+            y: window.scrollY,
+            width: window.innerWidth+window.pageXOffset,
+             height: window.innerHeight+window.pageYOffset,
+            logging: true
+        }
         // only update parameters after promise has been done
         window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
             // get canvas and draw 
