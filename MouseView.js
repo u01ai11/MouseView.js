@@ -32,7 +32,7 @@ if (typeof module !== 'undefined'){
     
     import('./dependencies/html2canvas.js').then((module) => {
         console.log(module)
-        window.html2canvas = module.default
+        window.html2canvas = module.default()
     })
     
     
@@ -66,9 +66,15 @@ if (typeof module !== 'undefined'){
     
     // parameters for the overlay
     mouseview.params.overlayColour = '#17202A' //i.e. hex black
-    mouseview.params.overlayAlpha = 0.99 // how transparent the overlay will be
-    mouseview.params.overlayGaussian = 0 // SD in pixels for the gaussian blur filter NOT WORKING, will blur everything under div
+    mouseview.params.overlayAlpha = 0.8 // how transparent the overlay will be
+    mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
     
+    // holder for the screenshot canvas
+    mouseview.screen_canvas = {}
+    // options for canvas
+    mouseview.h2canv_opts = {
+        type: 'view'
+    }
     
     // holders for overlay width and height 
     mouseview.params.overHeight = 0
@@ -117,12 +123,10 @@ if (typeof module !== 'undefined'){
         overlay.style.display = 'block';
         overlay.style.top = '0px'
         overlay.style.pointerEvents = 'none'
+        overlay.setAttribute('data-html2canvas-ignore','true')
+
         
-        // Use html2canvas to get viewport screen shot
-//        window.html2canvas(document.body).then(function(canvas) {
-//            document.body.appendChild(canvas);
-//        });
-//        
+        
         
         // set mouse listener to update position on mouse move
         document.body.addEventListener('mousemove', event => {
@@ -149,7 +153,13 @@ if (typeof module !== 'undefined'){
         window.addEventListener('scroll', updateOverlayCanvas);
         window.addEventListener('orientationchange', updateOverlayCanvas);
         
-        updateFrame()
+
+        // Use html2canvas to get viewport screen shot and store in global holder
+        window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
+            // get canvas and draw 
+            mouseview.screen_canvas = canvas
+            updateFrame()
+        })
     }
     
     function removeAll(){
@@ -193,24 +203,29 @@ if (typeof module !== 'undefined'){
     // function to deal with stuff at the animation frame level
     // this will be called using rAF callback
     function updateFrame(timestamp){
-        //console.log([mouseview.datalogger.x, mouseview.datalogger.y])
+
         var overlay = document.getElementById('overlay')
-        //overlay.style.setProperty('backdrop-filter',"blur(" + mouseview.params.overlayGaussian + "px)") //blurs everything
+
         var ctx = overlay.getContext('2d');
         
         //clear previous frame
         ctx.clearRect(0, 0, mouseview.params.overWidth, mouseview.params.overHeight)
         
-        // this means items drawn atop each other will go to transparent 
-        // TODO: make an 'xor' version allowing feathered edges
-        
-        
+        //draw screenshot with gaussian blur if we have set this to be greater than 0
+        if(mouseview.params.overlayGaussian > 0){
+            ctx.filter = 'blur('+mouseview.params.overlayGaussian+'px)';
+            ctx.globalAlpha = 1;
+            ctx.drawImage(mouseview.screen_canvas, 0,0, mouseview.params.overWidth, mouseview.params.overHeight)
+        }
+       
+        //return to source-over compositing
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.filter = 'none';
         // draw overlay again, based on global options
         ctx.fillStyle = mouseview.params.overlayColour;
         ctx.globalAlpha = mouseview.params.overlayAlpha;
         ctx.fillRect(0, 0, mouseview.params.overWidth, mouseview.params.overHeight);
         
-        // now we draw an aperture using canvas compositing
         
         // only draw aperture if we actually have a mouse position 
         if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
@@ -242,6 +257,14 @@ if (typeof module !== 'undefined'){
     // this is at the canvas not ctx level 
     function updateOverlayCanvas(){
         
+        //take new screenshot 
+        
+        // Use html2canvas to get viewport screen shot and store in global holder
+        // first get everything in the body other than the overlay 
+        window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
+            // get canvas and draw 
+            mouseview.screen_canvas = canvas
+        })
         var overlay = document.getElementById("overlay")
         mouseview.params.overWidth = overlay.parentNode.getBoundingClientRect().width
         mouseview.params.overHeight = overlay.parentNode.getBoundingClientRect().height // get height and width
