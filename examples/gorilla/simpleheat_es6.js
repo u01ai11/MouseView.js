@@ -1,7 +1,7 @@
 'use strict';
 
-if (typeof module !== 'undefined') module.exports = simpleheat;
-
+const simpleheatES6 = simpleheat
+export default simpleheatES6
 
 function simpleheat(canvas) {
     if (!(this instanceof simpleheat)) return new simpleheat(canvas);
