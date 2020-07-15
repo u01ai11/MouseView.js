@@ -32,12 +32,12 @@
     
     // parameters for the aperture 
     mouseview.params.apertureSize = 100// size of the view window
-    mouseview.params.apertureEdge = 'solid' // TODO: provide some options for edge 
+    mouseview.params.apetureGauss = 40 // if we are using a gaussian edge, this sets the blurring 0 for no blurr
     
     // parameters for the overlay
     mouseview.params.overlayColour = 'none' //i.e. hex black
     mouseview.params.overlayAlpha = 0 // how transparent the overlay will be
-    mouseview.params.overlayGaussian = 5 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
+    mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
     
     // holder for the screenshot canvas
     mouseview.screen_canvas = {}
@@ -190,16 +190,17 @@
             ctx.filter = 'blur('+mouseview.params.overlayGaussian+'px)';
             ctx.globalAlpha = 1;
             ctx.drawImage(mouseview.screen_canvas, 0,0, mouseview.params.overWidth, mouseview.params.overHeight)
-            
+            ctx.filter = 'none'; // reset filter
             // only draw aperture if we actually have a mouse position 
             if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
                 ctx.globalCompositeOperation = 'xor';
-                // TODO use xor compositing to make non-hard edged corners for aperture
+                ctx.filter = 'blur('+mouseview.params.apetureGauss+'px)';
                 ctx.beginPath();
                 ctx.arc(mouseview.datalogger.x + mouseview.params.offset.X,
                         mouseview.datalogger.y + mouseview.params.offset.Y, 
                         mouseview.params.apertureSize, 0, 2 * Math.PI, false);
                 ctx.fill()
+                ctx.filter = 'none';
 
             }
         }
@@ -216,12 +217,13 @@
         // only draw aperture if we actually have a mouse position 
         if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
             ctx.globalCompositeOperation = 'xor';
-            // TODO use xor compositing to make non-hard edged corners for aperture
+            ctx.filter = 'blur('+mouseview.params.apetureGauss+'px)';
             ctx.beginPath();
-                ctx.arc(mouseview.datalogger.x + mouseview.params.offset.X,
-                        mouseview.datalogger.y + mouseview.params.offset.Y, 
-                        mouseview.params.apertureSize, 0, 2 * Math.PI, false);
+            ctx.arc(mouseview.datalogger.x + mouseview.params.offset.X,
+                    mouseview.datalogger.y + mouseview.params.offset.Y, 
+                    mouseview.params.apertureSize, 0, 2 * Math.PI, false);
             ctx.fill()
+            ctx.filter = 'none'
             
         }
         
