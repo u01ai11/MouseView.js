@@ -31,12 +31,12 @@
     // her we can setup some default settings
     
     // parameters for the aperture 
-    mouseview.params.apertureSize = 100// size of the view window
-    mouseview.params.apetureGauss = 40 // if we are using a gaussian edge, this sets the blurring 0 for no blurr
+    mouseview.params.apertureSize = 50// size of the view window
+    mouseview.params.apetureGauss = 10 // if we are using a gaussian edge, this sets the blurring 0 for no blurr
     
     // parameters for the overlay
-    mouseview.params.overlayColour = 'none' //i.e. hex black
-    mouseview.params.overlayAlpha = 0 // how transparent the overlay will be
+    mouseview.params.overlayColour = 'black' //i.e. hex black
+    mouseview.params.overlayAlpha = 0.8 // how transparent the overlay will be
     mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
     
     // holder for the screenshot canvas
@@ -75,7 +75,7 @@
         /**
         * APPEND OVERLAY AND SETUP TRACKER
         */
-    
+        
         // Append overlay with settings
         mouseview.params.overHeight = window.innerHeight
         mouseview.params.overWidth = window.innerWidth
@@ -120,11 +120,27 @@
         window.addEventListener('orientationchange', updateOverlayCanvas);
         
         //setup options for html2canvs
+        
+        // get dimensions of full document 
+        var body = document.body;
+        var html = document.documentElement;
+        var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+        var width = Math.max( body.scrollWidth, body.offsetWidth, 
+                       html.clientWidth, html.scrollWidth, html.offsetWidth );
+        
+        // setup CSS in the header as a workaround to html2canvas's cropping bug
+        // TODO: test this works in older browsers
+        var css = '.html2canvas-container { width: '+ String(width)+'px !important; height: '+String(height)+'px !important; }',
+        head = document.head || document.getElementsByTagName('head')[0],
+        style = document.createElement('style');
+        head.appendChild(style);
+        style.type = 'text/css';
+        style.appendChild(document.createTextNode(css));
+        
         mouseview.h2canv_opts = {	
-            x: 0,
-            y: 0,
-            width: mouseview.params.overWidth,
-            height: mouseview.params.overHeight,
+            width: width,
+            height: height,
             logging: true
         }
         window.html2canvas = html2canvas(document.body, mouseview.h2canv_opts)
@@ -189,7 +205,19 @@
         if(mouseview.params.overlayGaussian > 0){
             ctx.filter = 'blur('+mouseview.params.overlayGaussian+'px)';
             ctx.globalAlpha = 1;
-            ctx.drawImage(mouseview.screen_canvas, 0,0, mouseview.params.overWidth, mouseview.params.overHeight)
+            
+            // the screen_canvas represents the whole document, so we need to do two things:
+            // - start clipping at X and Y scroll offset 
+            // - clip to the size of the inner window 
+            
+            // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+            ctx.drawImage(mouseview.screen_canvas, 
+                          mouseview.params.offset.X*2, mouseview.params.offset.Y*2, // SCROLLING OFFST
+                          mouseview.params.overWidth*2, mouseview.params.overHeight*2, //WIDTH AND HEIGHT OF WINDOW
+                          0, 0, // Where to draw on the destination canvas 
+                          mouseview.params.overWidth, mouseview.params.overHeight); // the width and height of canvas (the same)
+            
+            //ctx.drawImage(mouseview.screen_canvas, 0,0, mouseview.params.overWidth, mouseview.params.overHeight)
             ctx.filter = 'none'; // reset filter
             // only draw aperture if we actually have a mouse position 
             if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
@@ -274,15 +302,21 @@
         mouseview.params.offset.X = window.pageXOffset
         mouseview.params.offset.Y = window.pageYOffset
         
+        // get dimensions of full document 
+        var body = document.body;
+        var html = document.documentElement;
+        var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+        var width = Math.max( body.scrollWidth, body.offsetWidth, 
+                       html.clientWidth, html.scrollWidth, html.offsetWidth );
         mouseview.h2canv_opts = {	
-            x: mouseview.params.offset.X,
-            y: mouseview.params.offset.Y,
-            width: window.innerWidth,
-            height: window.innerHeight,
+            scrollY: -mouseview.params.offset.X,
+            scrollX: -mouseview.params.offset.X,
+            width: width,
+            height: height,
             logging: true
         }
         // only update parameters after promise has been done
-        
         window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
             // get canvas and draw 
             mouseview.screen_canvas = canvas
