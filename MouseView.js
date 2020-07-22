@@ -261,7 +261,7 @@
             console.log(timestamp, mouseview.timing.lastTime, mouseview.timing.sampleRate)
             
             if ( (timestamp - mouseview.timing.lastTime) >= mouseview.timing.sampleRate) {
-                logPosition(mouseview.datalogger.x, mouseview.datalogger.y, timestamp) //log position
+                logPosition(mouseview.datalogger.x +  mouseview.params.offset.X , mouseview.datalogger.y +  mouseview.params.offset.Y, timestamp) //log position
                 mouseview.timing.lastTime = timestamp // update last timestamp
             }
         }
