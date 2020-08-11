@@ -206,18 +206,32 @@
             ctx.filter = 'blur('+mouseview.params.overlayGaussian+'px)';
             ctx.globalAlpha = 1;
             
+            // the screen_canvas collected by html2canvas can be a different size to the rest of the screen, so we need to test its size and then scale appropriately 
+            
+            // the style usually represents the actual dimensions
+            var style_height = parseInt(mouseview.screen_canvas.style.height)
+            var style_width = parseInt(mouseview.screen_canvas.style.width)
+            
+            // and the height/width the different dimensions
+            var canv_height = mouseview.screen_canvas.height
+            var canv_width = mouseview.screen_canvas.width
+            
+            //make a float representing how these two relate to each other
+            var h_multi = canv_height/style_height
+            var w_multi = canv_width/style_width
+            
             // the screen_canvas represents the whole document, so we need to do two things:
             // - start clipping at X and Y scroll offset 
             // - clip to the size of the inner window 
             
             // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
             ctx.drawImage(mouseview.screen_canvas, 
-                          mouseview.params.offset.X*2, mouseview.params.offset.Y*2, // SCROLLING OFFST
-                          mouseview.params.overWidth*2, mouseview.params.overHeight*2, //WIDTH AND HEIGHT OF WINDOW
+                          mouseview.params.offset.X*w_multi, mouseview.params.offset.Y*h_multi, // SCROLLING OFFST
+                          mouseview.params.overWidth*w_multi, mouseview.params.overHeight*h_multi, //WIDTH AND HEIGHT OF WINDOW
                           0, 0, // Where to draw on the destination canvas 
                           mouseview.params.overWidth, mouseview.params.overHeight); // the width and height of canvas (the same)
             
-            //ctx.drawImage(mouseview.screen_canvas, 0,0, mouseview.params.overWidth, mouseview.params.overHeight)
+            
             ctx.filter = 'none'; // reset filter
             // only draw aperture if we actually have a mouse position 
             if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
