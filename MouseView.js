@@ -30,14 +30,16 @@
     mouseview.timing = mouseview.timing || {}
     // her we can setup some default settings
     
-    // parameters for the aperture 
-    mouseview.params.apertureSize = 50// size of the view window
-    mouseview.params.apetureGauss = 10 // if we are using a gaussian edge, this sets the blurring 0 for no blurr
+    // parameters for the aperture this can be an int, it will be interpreted as a pixel, or percentage and it will be a percentage of the screen size 
+    mouseview.params.apertureSize = '5%'// size of the view window
+    mouseview.params.apertureGauss = 10 // if we are using a gaussian edge, this sets the blurring 0 for no blurr
     
     // parameters for the overlay
     mouseview.params.overlayColour = 'black' //i.e. hex black
     mouseview.params.overlayAlpha = 0.8 // how transparent the overlay will be
-    mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter experimental (stretches stuff)
+    mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter (experimental -- not consistent on browsers)
+    
+    mouseview.params.overlayGaussianFunc = () => {console.log('overlay generated')} //function that can be set, which will run on completion of blurred overlay being generated
     
     // holder for the screenshot canvas
     mouseview.screen_canvas = {}
@@ -148,6 +150,7 @@
         window.html2canvas(document.body, mouseview.h2canv_opts).then((canvas) => {
             // get canvas and draw 
             mouseview.screen_canvas = canvas
+            mouseview.params.overlayGaussianFunc()
             updateFrame()
         })
     }
@@ -236,11 +239,19 @@
             // only draw aperture if we actually have a mouse position 
             if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
                 ctx.globalCompositeOperation = 'xor';
-                ctx.filter = 'blur('+mouseview.params.apetureGauss+'px)';
+                ctx.filter = 'blur('+mouseview.params.apertureGauss+'px)';
                 ctx.beginPath();
+                
+                var apsize
+                if (typeof(mouseview.params.apertureSize) == "string") {
+                    apsize = window.innerHeight * (parseInt(mouseview.params.apertureSize)/100)
+                } else {
+                    apsize = mouseview.params.apertureSize
+                }
+                 
                 ctx.arc(mouseview.datalogger.x + mouseview.params.offset.X,
                         mouseview.datalogger.y + mouseview.params.offset.Y, 
-                        mouseview.params.apertureSize, 0, 2 * Math.PI, false);
+                        apsize, 0, 2 * Math.PI, false);
                 ctx.fill()
                 ctx.filter = 'none';
 
@@ -259,11 +270,17 @@
         // only draw aperture if we actually have a mouse position 
         if (mouseview.datalogger.x != null || mouseview.datalogger.y != null){
             ctx.globalCompositeOperation = 'xor';
-            ctx.filter = 'blur('+mouseview.params.apetureGauss+'px)';
+            ctx.filter = 'blur('+mouseview.params.apertureGauss+'px)';
             ctx.beginPath();
+            var apsize
+            if (typeof(mouseview.params.apertureSize) == "string") {
+                apsize = window.innerHeight * (parseInt(mouseview.params.apertureSize)/100)
+            } else {
+                apsize = mouseview.params.apertureSize
+            }
             ctx.arc(mouseview.datalogger.x + mouseview.params.offset.X,
                     mouseview.datalogger.y + mouseview.params.offset.Y, 
-                    mouseview.params.apertureSize, 0, 2 * Math.PI, false);
+                    apsize, 0, 2 * Math.PI, false);
             ctx.fill()
             ctx.filter = 'none'
             
