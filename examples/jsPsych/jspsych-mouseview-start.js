@@ -67,7 +67,7 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
         mouseview.params.overlayGaussian = 0
         mouseview.params.overlayGaussianFunc = on_complete
         mouseview.init()
-    }, 200);
+    }, 500);
     
   };
 
