@@ -30,13 +30,18 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
       },
       overlay_alpha: {
         type: jsPsych.plugins.parameterType.FLOAT,
-        default: 0.95,
+        default: 0.8,
         description: "The transparancy from 0-1 of the obverlay"
       },
       overlay_gaussian: {
         type: jsPsych.plugins.parameterType.INT,
         default: 20,
         description: "The SD of the gaussian blur for the content underneath the overlay"
+      },
+      overlay_gaussian_update: {
+        type: jsPsych.plugins.parameterType.INT,
+        default: 500,
+        description: "The millisecond interval to wait for recapturing underneath for the blurring"
       }
     }
   }
@@ -65,6 +70,7 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
         mouseview.params.overlayColour = trial.overlay_colour
         mouseview.params.overlayAlpha = trial.overlay_alpha
         mouseview.params.overlayGaussian = trial.overlay_gaussian
+        mouseview.params.overlayGaussianInterval = trial.overlay_gaussian_update
         mouseview.params.overlayGaussianFunc = on_complete
         mouseview.init()
     }, 500);

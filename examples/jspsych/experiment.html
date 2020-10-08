@@ -15,13 +15,12 @@
 
   var timeline = [];
     
-  var mouseview_trial_start = ()=> {
-                               mouseview.updateOverlayBlur()
-                               mouseview.logEvent('Trial Started')
-                               }
+  var mouseview_trial_start = ()=> {     
+    mouseview.logEvent('Trial Started')
+  }
   var mouseview_trial_end = ()=> {
-                               mouseview.logEvent('Trial Ended')
-                               }
+    mouseview.logEvent('Trial Ended')
+ }
   timeline.push({
       type: 'Mouseview-Start'
   })      

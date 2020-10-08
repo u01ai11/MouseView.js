@@ -38,8 +38,8 @@
     mouseview.params.overlayColour = 'black' //i.e. hex black
     mouseview.params.overlayAlpha = 0.8 // how transparent the overlay will be
     mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filter (experimental -- not consistent on browsers)
-    
     mouseview.params.overlayGaussianFunc = () => {console.log('overlay generated')} //function that can be set, which will run on completion of blurred overlay being generated
+    mouseview.params.overlayGaussianInterval = 0 // set to zero if updates hapen on resize events, or set to number of ms you want to wait until recapturing canvas
     
     // holder for the screenshot canvas
     mouseview.screen_canvas = {}
@@ -294,6 +294,14 @@
             if ( (timestamp - mouseview.timing.lastTime) >= mouseview.timing.sampleRate) {
                 logPosition(mouseview.datalogger.x +  mouseview.params.offset.X , mouseview.datalogger.y +  mouseview.params.offset.Y, timestamp) //log position
                 mouseview.timing.lastTime = timestamp // update last timestamp
+            }
+        }
+        
+        // if we have a mnual interval for updating overlay!
+        if (mouseview.params.overlayGaussianInterval > 0)
+            // check if we are due a refresh
+            if ( (timestamp - mouseview.timing.lastTime) >= mouseview.params.overlayGaussianInterval) {
+                updateOverlayCanvas() // do it 
             }
         }
         

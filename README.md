@@ -57,6 +57,10 @@ mouseview.params.overlayGaussian = 20 // SD in pixels for the gaussian blur filt
 // A callback function can be passed into this argument, that will be run on the completion of the guassian blurring
 // As this can take up to a couple of seconds, this is very hand to hide elements or to start events after the blurr is in place!
 mouseview.params.overlayGaussianFunc = () => { }
+
+// You can also pass in the number of ms you want to wait before manually recapturing the blur (you may want to do this for dynamic contennt in the page)
+// if you pass zero it updates only on page resize or scroll events
+mouseview.params.overlayGaussianInterval = 0
 ```
 
 ## Integration 
