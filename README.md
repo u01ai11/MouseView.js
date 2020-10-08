@@ -76,16 +76,16 @@ mouseview.startRecording() // this starts a record and logs timestamps in consol
 mouseview.stopRecording() // this stops and logs the data into the console 
 ```
 The tracking data is stored in mouseviews namespace as an Array of objects with properties X, Y, time and event (for tracking data this is always 'sample'). Representing coordinates of the mouse on the viewport (not the page, relevant if scrolling is involved -- this will be updated in time), and the time in milliseconds from the recording start
-
+```JavaScript
+mouseview.datalogger.data // this is where the data is stored
+```
 We also provide a utility function for logging in arbirary event strings -- you can use this to log things like image loads, or trial initation. It also logs in the current mouse location and the current timestamp.
 
 ```JavaScript
 mouseview.logEvent('Experiment Loaded')
 ```
 
-```JavaScript
-mouseview.datalogger.data
-```
+
 You can also request a target interval for data storage in milliseconds. The default is 16.66ms, which is a frame refresh on a 60Hz monitor. This is dependent on the ability to flip a frame, so sometimes this may not be exact!
 
 ## Local Storage

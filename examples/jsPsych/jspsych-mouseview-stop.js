@@ -24,17 +24,20 @@ jsPsych.plugins["Mouseview-Stop"] = (function() {
       var X = []
       var Y = []
       var T = []
+      var E = []
       // loop through stored data
       for (var i = 0; i < mouseview.datalogger.data.length; i++) {
           X.push(mouseview.datalogger.data[i].x)
           Y.push(mouseview.datalogger.data[i].y)
           T.push(mouseview.datalogger.data[i].time)
+          E.push(mouseview.datalogger.data[i].event)
         }
       
       var trial_data = {
           X: X,
           Y: Y,
-          Time: T
+          Time: T,
+          Event: E
       }
       
       jsPsych.finishTrial(trial_data)
