@@ -71,6 +71,7 @@
     mouseview.timing.lastTime = 0.0 // holder for last frame time
     mouseview.timing.startTime = 0.0 // holder for start time 
     mouseview.timing.finishTime = 0.0 // holder for finish time
+    mouseview.timing.lastOverlayRefresh = 0.0 // holder for last overlay screen refresh
     // Private functions 
     
     function init(){
@@ -300,7 +301,7 @@
         // if we have a mnual interval for updating overlay!
         if (mouseview.params.overlayGaussianInterval > 0){
             // check if we are due a refresh
-            if ( (timestamp - mouseview.timing.lastTime) >= mouseview.params.overlayGaussianInterval) {
+            if ( (timestamp - mouseview.timing.lastOverlayRefresh >= mouseview.params.overlayGaussianInterval) {
                 updateOverlayCanvas() // do it 
             }
         }
@@ -332,6 +333,8 @@
             overlay.height = mouseview.params.overHeight
 
         }
+        
+        mouseview.timing.lastOverlayRefresh = mouseview.timing.lastTime
     }
     
     function updateOverlayBlur(){
