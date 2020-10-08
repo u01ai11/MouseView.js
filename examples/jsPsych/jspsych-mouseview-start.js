@@ -32,7 +32,7 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
         type: jsPsych.plugins.parameterType.FLOAT,
         default: 0.95,
         description: "The transparancy from 0-1 of the obverlay"
-      }//,
+      },
       overlay_gaussian: {
         type: jsPsych.plugins.parameterType.INT,
         default: 20,
