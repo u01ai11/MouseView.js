@@ -67,6 +67,7 @@ mouseview.params.overlayGaussianInterval = 0
 
 We are making efforts to have this library integrated into existing platforms and tools for online data collection. 
 
+### jsPsych
 The current working example is using jsPsych through the form of plugins. A start and stop plugins. 
 
 A demo within a jsPsych experiment is available [here](https://mouseview.netlify.app/examples/jspsych/experiment.html)
