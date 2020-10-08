@@ -301,7 +301,7 @@
         // if we have a mnual interval for updating overlay!
         if (mouseview.params.overlayGaussianInterval > 0){
             // check if we are due a refresh
-            if ( (timestamp - mouseview.timing.lastOverlayRefresh >= mouseview.params.overlayGaussianInterval) {
+            if ( (timestamp - mouseview.timing.lastOverlayRefresh) >= mouseview.params.overlayGaussianInterval) {
                 updateOverlayCanvas() // do it 
             }
         }
