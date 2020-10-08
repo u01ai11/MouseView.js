@@ -492,6 +492,15 @@
     mouseview.clearData = () => {
         clearData()
     }
+    
+    mouseview.logEvent = () => {
+        logEvent()
+    }
+    
+    mouseview.updateOverlayCanvas = () => {
+        updateOverlayCanvas()
+    }
+    
     // Setters 
     
     //bundled dependencies 
