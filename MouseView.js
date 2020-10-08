@@ -381,7 +381,18 @@
         mouseview.datalogger.data.push({
             x: xpos,
             y: ypos,
-            time: timestamp - mouseview.timing.startTime
+            time: timestamp - mouseview.timing.startTime,
+            event: 'sample'
+        })
+    }
+    
+    // log a random event 
+    function logEvent(event_string){
+        mouseview.datalogger.data.push({
+            x: mouseview.datalogger.X,
+            y: mouseview.datalogger.Y,
+            time: mouseview.timing.lastTime - mouseview.timing.startTime, 
+            event: event_string
         })
     }
     

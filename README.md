@@ -75,7 +75,13 @@ To start recording mouse movements you use the following functions
 mouseview.startRecording() // this starts a record and logs timestamps in console
 mouseview.stopRecording() // this stops and logs the data into the console 
 ```
-The tracking data is stored in mouseviews namespace as an Array of objects with properties X, Y and time. Representing coordinates of the mouse on the viewport (not the page, relevant if scrolling is involved -- this will be updated in time), and the time in milliseconds from the recording start
+The tracking data is stored in mouseviews namespace as an Array of objects with properties X, Y, time and event (for tracking data this is always 'sample'). Representing coordinates of the mouse on the viewport (not the page, relevant if scrolling is involved -- this will be updated in time), and the time in milliseconds from the recording start
+
+We also provide a utility function for logging in arbirary event strings -- you can use this to log things like image loads, or trial initation. It also logs in the current mouse location and the current timestamp.
+
+```JavaScript
+mouseview.logEvent('Experiment Loaded')
+```
 
 ```JavaScript
 mouseview.datalogger.data
