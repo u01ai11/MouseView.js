@@ -58,22 +58,24 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
         mouseview.startTracking() // start tracking mouse movements
         jsPsych.finishTrial(trial_data) // log the height and width then move on 
     }
-    // create element and append to body
-    var js = document.createElement("script");
-    js.type = "module";
-    js.src = "https://mouseview.netlify.app/MouseView.js";
-    document.body.appendChild(js);
-
-    setTimeout(function(){
-        mouseview.params.apertureSize = trial.aperture_size
-        mouseview.params.apertureGauss = trial.aperture_gauss 
-        mouseview.params.overlayColour = trial.overlay_colour
-        mouseview.params.overlayAlpha = trial.overlay_alpha
-        mouseview.params.overlayGaussian = trial.overlay_gaussian
-        mouseview.params.overlayGaussianInterval = trial.overlay_gaussian_update
-        mouseview.params.overlayGaussianFunc = on_complete
-        mouseview.init()
-    }, 500);
+    
+    
+    var setup_mouseview = () => {
+            mouseview.params.apertureSize = trial.aperture_size
+            mouseview.params.apertureGauss = trial.aperture_gauss 
+            mouseview.params.overlayColour = trial.overlay_colour
+            mouseview.params.overlayAlpha = trial.overlay_alpha
+            mouseview.params.overlayGaussian = trial.overlay_gaussian
+            mouseview.params.overlayGaussianInterval = trial.overlay_gaussian_update
+            mouseview.params.overlayGaussianFunc = on_complete
+            mouseview.init()
+    }
+    
+    var el = document.createElement('script')
+    el.onload  = setup_mouseview
+    el.src = "https://mouseview.netlify.app/MouseView.js"
+    document.head.appendChild(el)
+   
     
   };
 
