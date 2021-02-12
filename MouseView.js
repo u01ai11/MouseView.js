@@ -504,8 +504,8 @@
         clearData()
     }
     
-    mouseview.logEvent = () => {
-        logEvent()
+    mouseview.logEvent = (event_txt) => {
+        logEvent(event_txt)
     }
     
     mouseview.updateOverlayCanvas = () => {
