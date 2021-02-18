@@ -3,7 +3,7 @@ Attentional mouse tracking. Alternative to online eye tracking.
 
 This is very much a work in progress, so please **don't use this in production** yet. You have been warned. The known problems are summarised in the issues on this repo.
 
-Demo available [here](https://mouseview.netlify.app)
+Demo available [here](https://mouseview-docs.netlify.app/demo.html)
 
 <img src="/resources/mouseview_demo.gif" width="350"/>
 
