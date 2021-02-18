@@ -1,0 +1,38 @@
+backend:
+  name: github
+  branch: master # Branch to update (optional; defaults to master)
+  repo: u01ai11/mouseview.js
+
+# This line should *not* be indented
+publish_mode: editorial_workflow
+
+# This line should *not* be indented
+media_folder: "WWW/static/images/uploads" # Media files will be stored in the repo under images/uploads
+public_folder: "/images/uploads" # The src attribute for uploaded media will begin with /images/uploads
+
+collections:
+  - name: docs
+    label: "docs"
+    folder: WWW/docs
+    identifier_field: title
+    extension: md
+    widget: "list"
+    create: true
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: sidebar_label, label: Label, widget: string }
+      - { name: body, label: Body, widget: markdown }
+  - name: blog
+    label: "blog"
+    folder: WWW/blog
+    identifier_field: title
+    extension: md
+    widget: "list"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: author, label: Label, widget: string }
+      - { name: authorURL, label: "Author URL", widget: string }
+      - { name: authorFBID, label: "Author FBID", widget: number }
+      - { name: body, label: Body, widget: markdown }
