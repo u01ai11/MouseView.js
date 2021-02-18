@@ -15,7 +15,7 @@ MouseView.js is designed to inject a layer over a webpage. Simply include the sc
  
 The most up-to-date one is hosted on netlify:
 ```HTML
-<script src="https://mouseview.netlify.app/MouseView.js" type="module"></script>
+<script src="https://mouseview-docs.netlify.app/MouseView.js" type="module"></script>
 ```
 or you can just download a version to your site and include it that way
 ```HTML
