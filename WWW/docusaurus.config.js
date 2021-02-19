@@ -23,7 +23,7 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'Demo.html',
+          href: 'https://mouseview.org/demo.html',
           label: 'Demo',
           position: 'right',
         },
