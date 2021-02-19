@@ -1,6 +1,6 @@
 ---
 id: Introduction
-title: Getting Set up
+title: Quick Start
 sidebar_label: Style Guide
 slug: /
 ---
@@ -16,6 +16,14 @@ Demo available [here](https://mouseview-docs.netlify.app/demo.html)
 
 
 ## Getting Started
+
+There are two ways users (that's you) are likely to use this toolbox. 
+1) In a custom app, website, or locally. 
+2) As part of a prebuilt experiment. 
+
+The easiest way of getting started with the basics is the first one, as an app. We cover this setup here. 
+
+If you are interested in 2) then checkout our Gorilla and jsPsych examples. Gorilla is the most straightforward way of buildng a MouseView.js experiment, so we recommend this. 
 
 ### Install and setup
 MouseView.js is designed to inject a layer over a webpage. Simply include the script on in your websites **body** tag.
