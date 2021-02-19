@@ -9,9 +9,10 @@ The Gorilla Experiment Builder is a fully tooled platform that deals wih every a
 Using Gorilla is he quickest and easiest way to get your MouseView.js experiment up and running. 
 
 ## Task Builder
-The Task builder is where the MouseView.js script is configured and installed. There are two ways to do this, using a drag and drop zone, or using the script tab. 
+The Task builder is where the MouseView.js script is configured and installed. There are two ways to do this, using a drag and drop zone (the easiest), or using the script tab (less easy). 
 
-Currently a beta drag and drop zone is under development, so it's not quite ready yet
+### Drag and Drop Zone
+Currently a beta drag and drop zone is under development, so it's not quite ready yet. We'll update this doc with a link as soon as possible. 
 
 ### Task Builder Script
 
