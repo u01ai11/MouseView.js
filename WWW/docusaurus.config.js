@@ -16,7 +16,7 @@ module.exports = {
         src: 'img/logo-pink-txt-tight.svg',
       },
       googleAnalytics: {
-        trackingID: 'G-ZVJFCK7W51',
+        trackingID: 'UA-93929736-3',
         // Optional fields.
         anonymizeIP: false, // Should IPs be anonymized?
       },
