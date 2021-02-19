@@ -1,2 +1,5 @@
 /static/MouseView.js
   Access-Control-Allow-Origin: *
+ 
+ /MouseView.js
+  Access-Control-Allow-Origin: *
