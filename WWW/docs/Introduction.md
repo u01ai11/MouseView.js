@@ -1,7 +1,7 @@
 ---
 id: Introduction
-title: Quick Start
-sidebar_label: Style Guide
+title: The Basics
+sidebar_label: Quick Start
 slug: /
 ---
 
