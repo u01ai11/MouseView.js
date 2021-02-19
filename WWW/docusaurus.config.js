@@ -8,11 +8,17 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'u01ai11', // Usually your GitHub org/user name.
   projectName: 'mouseview.js', // Usually your repo name.
+  plugins: ['@docusaurus/plugin-google-analytics'],
   themeConfig: {
     navbar: {
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo-pink-txt-tight.svg',
+      },
+      googleAnalytics: {
+        trackingID: 'G-ZVJFCK7W51',
+        // Optional fields.
+        anonymizeIP: false, // Should IPs be anonymized?
       },
       items: [
         {
@@ -84,4 +90,5 @@ module.exports = {
   customFields:{
      heroLogo: 'img/logo-white-text-tight.svg',  
   },
+  
 };
