@@ -1,6 +1,6 @@
 module.exports = {
   title: 'MouseView.js',
-  tagline: 'Online attentional tracking',
+  tagline: 'Eye tracking without the eyes',
   url: 'https://mouseview-docs.netlify.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -10,10 +10,9 @@ module.exports = {
   projectName: 'mouseview.js', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'MouseView.js',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo-pink-txt-tight.svg',
       },
       items: [
         {
@@ -31,7 +30,7 @@ module.exports = {
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
         {
           title: 'Docs',
@@ -52,7 +51,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} MouseView.js`,
     },
   },
   presets: [
@@ -77,4 +76,7 @@ module.exports = {
       },
     ],
   ],
+  customFields:{
+     heroLogo: 'img/logo-white-text-tight.svg',  
+  },
 };
