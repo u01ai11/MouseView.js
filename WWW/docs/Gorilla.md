@@ -3,22 +3,21 @@ id: Gorilla
 title: Running MouseView.js experiment on Gorilla
 sidebar_label: Gorilla
 ---
-# Gorilla.sc
 The Gorilla Experiment Builder is a fully tooled platform that deals wih every aspect of experiment design and hosting through a GUI. 
 
 Using Gorilla is he quickest and easiest way to get your MouseView.js experiment up and running. 
 
-## Task Builder
+# Task Builder
 The Task builder is where the MouseView.js script is configured and installed. There are two ways to do this, using a drag and drop zone (the easiest), or using the script tab (less easy). 
 
-### Drag and Drop Zone
+# Drag and Drop Zone
 Currently a beta drag and drop zone is under development, so it's not quite ready yet. We'll update this doc with a link as soon as possible. 
 
-### Task Builder Script
+# Task Builder Script
 
 To activate the overlay, track across a single screen, and pip in data there are several elements that need to be included in your Script tab. 
 
-#### General settings
+## General settings
 
 It's often easy to specify variables at the start of your script, so they are referred to later. It's easy to change them.
 
@@ -41,7 +40,7 @@ var screens = [2] // in these displays what screens are blurred
 
 Gorilla gives us hooks that run everytime given events happen. We use these to setup, start and stop MouseView.js. We use two here, OnScreenStart and OnScreenFinish
 
-#### On Screen Start
+## On Screen Start
 
 There are several things you need to do at the start of a screen. So we use this hook. It has the form:
 
@@ -53,7 +52,7 @@ gorillaTaskBuilder.onScreenStart((spreadsheet: any, rowIndex: number, screenInde
 
 All the code in this subsection is placed within this hook. 
 
-##### Hiding Cover
+### Hiding Cover
 If you are using the Gaussuan Blur overlay, you will need to hide everything on screen whilst it loads. This avoids previewing the trial in full before the blur layer is draw. We only need to create this overlay once and then use .show() and .hide() to use it. 
 
 Below we use rowIndex == 0 conditional to create this overlay on the first trial. 
@@ -72,7 +71,7 @@ Below we use rowIndex == 0 conditional to create this overlay on the first trial
     }
 ```
 
-##### On MouseView.js displays
+### On MouseView.js displays
 
 If this display is one we want to use MouseView.js on, and the screen is at the correct index, then we can start loading the script and hiding things. Read the comment lines in the code below for more details. 
 
@@ -113,7 +112,7 @@ If this display is one we want to use MouseView.js on, and the screen is at the 
 
 ```
 
-#### On Screen Finish
+## On Screen Finish
 
 At the end of the screen we want to do several things:
 - Stop tracking
@@ -137,7 +136,7 @@ if (displays.includes(row.display)){ // if we are on one of mouseview displays
 }
 ```
 
-##### Stop tracking mouse/touches and remove overlay
+### Stop tracking mouse/touches and remove overlay
 
 We stop tracking, find the cover we use to hide the trial, then have MouseView.js remove all it's overlay stuff.
 ```JavaScript
@@ -147,7 +146,7 @@ cover.show() // show it
 mouseview.removeAll() // remove mouseview overlay
 ```
 
-##### Calculate things about your trial 
+### Calculate things about your trial 
 :::caution
 Warning! These settings are specific to **your** design. So won't just work on any random Gorilla experiment
 :::
@@ -181,7 +180,7 @@ gorilla.metric({
         trial_number: trial_num
 })
 ````            
-##### Save MouseView coordinates! 
+### Save MouseView coordinates! 
 
 Now the most important bit, we save the data for the mousecoordinates overtime. We do this by looping through our data object and logging Gorilla metrics. We also get rid of the cover, ready for the next trial
 
@@ -198,7 +197,7 @@ for (var i = 0; i < mouseview.datalogger.data.length; i++) {
 cover.hide()
 ```
 
-#### full example script:
+## full example script:
 
 Here's a full example:
 
