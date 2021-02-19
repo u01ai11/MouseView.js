@@ -23,6 +23,11 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
+          href: 'Demo.html',
+          label: 'Demo',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/u01ai11/mouseview.js',
           label: 'GitHub',
           position: 'right',
