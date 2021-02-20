@@ -10,15 +10,15 @@ module.exports = {
   projectName: 'mouseview.js', // Usually your repo name.
   plugins: ['@docusaurus/plugin-google-analytics'],
   themeConfig: {
+    googleAnalytics: {
+      trackingID: 'UA-93929736-3',
+      // Optional fields.
+      anonymizeIP: false, // Should IPs be anonymized?
+    },
     navbar: {
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo-pink-txt-tight.svg',
-      },
-      googleAnalytics: {
-        trackingID: 'UA-93929736-3',
-        // Optional fields.
-        anonymizeIP: false, // Should IPs be anonymized?
       },
       items: [
         {
