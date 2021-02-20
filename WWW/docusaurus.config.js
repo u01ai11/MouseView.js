@@ -8,7 +8,6 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'u01ai11', // Usually your GitHub org/user name.
   projectName: 'mouseview.js', // Usually your repo name.
-  plugins: ['@docusaurus/plugin-google-analytics'],
   themeConfig: {
     googleAnalytics: {
       trackingID: 'UA-93929736-3',
