@@ -46,7 +46,7 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Documentation',
               to: 'docs/',
             }
           ],
@@ -72,13 +72,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/u01ai11/mouseview.js/edit/master/WWW/docs/'',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/u01ai11/mouseview.js/edit/master/WWW/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
