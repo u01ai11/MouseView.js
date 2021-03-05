@@ -15,7 +15,9 @@ Currently a beta drag and drop zone is under development, so it's not quite read
 
 # Task Builder Script
 
-:::caution This assumes you to know a bit of JavaScript, if you are new to this please check out Gorilla's tutorials on Task Builder scripting first. :::
+:::caution 
+This assumes you to know a bit of JavaScript, if you are new to this please check out Gorilla's tutorials on Task Builder scripting first. 
+:::
 
 To activate the overlay, track across a single screen, and pip in data there are several elements that need to be included in your Script tab. 
 
