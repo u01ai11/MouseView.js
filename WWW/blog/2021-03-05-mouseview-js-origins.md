@@ -1,6 +1,6 @@
 ---
-slug: welcome
-title: MouseView.js: Origins
+slug: MouseView.js - Origins
+title: MouseView.js - Origins
 author: Thomas Armstrong
 author_title: Lab Director @ PEEP Lab
 author_url: https://twitter.com/PEEP_lab/
