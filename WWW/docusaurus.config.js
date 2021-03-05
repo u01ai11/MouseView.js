@@ -72,7 +72,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/u01ai11/mouseview.js/edit/master/WWW/docs/'',
+            'https://github.com/u01ai11/mouseview.js/edit/master/WWW/docs/',
         },
         blog: {
           showReadingTime: true,
