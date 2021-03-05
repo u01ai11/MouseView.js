@@ -4,7 +4,7 @@ title: Configuration Options
 sidebar_label: Configuration
 ---
 
-## Settings
+## Setting attributes
 
 You can set multiple different attributes of the aperture and the overlay
 ```JavaScript
@@ -32,6 +32,8 @@ mouseview.params.overlayGaussianFunc = () => { }
 // if you pass zero it updates only on page resize or scroll events
 mouseview.params.overlayGaussianInterval = 0
 ```
+
+## All attributes
 
 
 | Setting                                  | Description                                                                                                                                 | Accepted Types                                           | Default                                   |
