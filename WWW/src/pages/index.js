@@ -24,7 +24,7 @@ const features = [
     imageUrl: 'img/undraw_progressive_app.svg',
     description: (
       <>
-        Despite its name MouseView.js has support for touch-screen devices too
+        Despite its name MouseView.js has support for touch-screen devices too.
       </>
     ),
   },
@@ -39,6 +39,39 @@ const features = [
   },
 ];
 
+const authors = [
+    {
+        name: 'Alex Anwyl-Irvine',
+        imageUrl: 'img/alex.png',
+        personalURL: 'https://www.irvine.science',
+        bio: (
+          <>
+            Alex is a developmental cognitive neuroscientist with an interest in software development.
+          </>
+        ),
+    },
+    {
+        name: 'Thomas Armstrong',
+        imageUrl: 'img/tom.jpg',
+        personalURL: 'http://www.peep-lab.org/',
+        bio: (
+          <>
+            Tom is a Clinical psychologist studying disgust, emotion, motivation with eyetracking. 
+          </>
+        ),
+    },
+    {
+        name: 'Edwin Dalmaijer',
+        imageUrl: 'img/edwin.jpg',
+        personalURL: 'www.dalmaijer.org',
+        bio: (
+          <>
+            Edwin is a cognitive scientist who develops eye-tracking software, and researches how affect, cognition, and environment interact in child development.
+          </>
+        ),
+    }
+];
+
 function Feature({imageUrl, title, description}) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
@@ -50,6 +83,24 @@ function Feature({imageUrl, title, description}) {
       )}
       <h3>{title}</h3>
       <p>{description}</p>
+    </div>
+  );
+}
+
+function Author({name, imageUrl, personalURL, bio}) {
+  const imgUrl = useBaseUrl(imageUrl);
+  return (
+    <div className={clsx('col col--4', styles.feature)}>
+      {imgUrl && (
+        <div className="text--center">
+          <img className={styles.authorImage} src={imgUrl} alt={name} />
+        </div>
+      )}
+      <div className="text--center">
+         <h4>{name}</h4>
+         <a href={personalURL} target="_blank">website</a>
+         <p>{bio}</p>
+      </div>
     </div>
   );
 }
@@ -79,7 +130,7 @@ function Home() {
         </div>
  <Particles
                 params={{
-                   "particles":{"number":{"value":350,"density":{"enable":true,"value_area":1000.8066982851817}},"color":{"value":"#ffffff"},"shape":{"type":"image","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/eye.png","width":100,"height":100}},"opacity":{"value":0.5,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":2,"direction":"none","random":true,"straight":false,"out_mode":"bounce","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":false,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":100.7842157842158,"size":9.988011988011989,"duration":4.155844155844156,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true
+                   "particles":{"number":{"value":350,"density":{"enable":true,"value_area":1000.8066982851817}},"color":{"value":"#ffffff"},"shape":{"type":"image","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/eye.png","width":100,"height":100}},"opacity":{"value":0.5,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":75,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":2,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"bubble"},"onclick":{"enable":false,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":100.7842157842158,"size":9.988011988011989,"duration":4.155844155844156,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true
                 }} 
                 style={{
                     position: 'absolute',
@@ -95,18 +146,60 @@ function Home() {
                 }}
               />
       </header>
-      <main>
+      <main>  
         {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
+            <div className="text--center">
+               <h1>Features</h1>
+                <br></br>
+             </div>
               <div className="row">
                 {features.map((props, idx) => (
                   <Feature key={idx} {...props} />
                 ))}
               </div>
+            <hr></hr>
             </div>
           </section>
         )}
+
+        <div className="container">
+            <div className="text--center">
+                <h1>MouseView.js in action</h1>
+                <br></br>
+                <img src='img/example.gif'></img>
+            </div>
+            <hr></hr>
+        </div>
+
+        <div className="container">
+            <div className="text--center">
+                <h1>Publications</h1>
+<p>Read our preprint on PsyArXiv <a href='https://doi.org/10.31234/osf.io/rsdwg' target="_blank">here</a></p>
+<p>If you use this tool please cite:</p>
+                <code style ={{width: '70%'}}>Anwyl-Irvine, A. L., Armstrong, T., & Dalmaijer, E. S. (2021, March 7). 
+                 MouseView.js: Reliable and valid attention tracking in web-based experiments using a cursor-directed aperture. https://doi.org/10.31234/osf.io/rsdwg </code>
+                
+            </div>
+            <hr></hr>
+        </div>
+{authors && authors.length > 0 && (
+          <section className={styles.features}>
+            <div className="container">
+            <div className="text--center">
+               <h1>Creators</h1>
+                <br></br>
+             </div>
+              <div className="row">
+                {authors.map((props, idx) => (
+                  <Author key={idx} {...props} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+               
       </main>
     </Layout>
   );

@@ -26,7 +26,7 @@ To activate the overlay, track across a single screen, and pip in data there are
 It's often easy to specify variables at the start of your script, so they are referred to later. It's easy to change them.
 
 Let's specify our mouseview settings:
-```JavaScript
+```jsx
 //Settings for mouseview
 var aperture_size = "5%" // the size of the viewing apeture
 var overlay_colour = 'black' // the colour of the overlay
@@ -36,7 +36,7 @@ var overlay_blur = 30 // the SD of the gaussuan blur (higher = blurrier)
 
 And also a list of displays we want to use the MouseView plugin on, and the index of the screen in these displays which we want everything to happen on.
 
-```JavaScript
+```jsx
 //settings for your Gorilla task
 var displays = ['trial', 'practice'] // what displays are we using mouseview on
 var screens = [2] // in these displays what screens are blurred
@@ -48,7 +48,7 @@ Gorilla gives us hooks that run everytime given events happen. We use these to s
 
 There are several things you need to do at the start of a screen. So we use this hook. It has the form:
 
-```JavaScript
+```jsx
 gorillaTaskBuilder.onScreenStart((spreadsheet: any, rowIndex: number, screenIndex: number, row: any, container: string) => {
     //stuff happens here.
 })
@@ -61,7 +61,7 @@ If you are using the Gaussuan Blur overlay, you will need to hide everything on 
 
 Below we use rowIndex == 0 conditional to create this overlay on the first trial. 
 
-```JavaScript 
+```jsx 
     if(rowIndex == 0){
         //create cover screen that we use to hide contents until mouseview is ready
         var cover = document.createElement("div"); 
@@ -79,7 +79,7 @@ Below we use rowIndex == 0 conditional to create this overlay on the first trial
 
 If this display is one we want to use MouseView.js on, and the screen is at the correct index, then we can start loading the script and hiding things. Read the comment lines in the code below for more details. 
 
-```JavaScript
+```jsx
   if (displays.includes(row.display)){ // if we are on one of mouseview displays
     
         if (screens.includes(screenIndex)){ // if we are on one of our blurred screens
@@ -125,14 +125,14 @@ At the end of the screen we want to do several things:
 - Hide everything and shut down
 
 The Gorilla hook looks like this, everything in this section is within that hook:
-```JavaScript
+```jsx
 gorillaTaskBuilder.onScreenFinish((spreadsheet: any, rowIndex: number, screenIndex: number, row: any, container: string, correct: boolean) => {
    // stuff goes here
 })
 ```
 additionally we only want this to run on the MouseView.js displays and screens so we do this: 
 
-```JavaScript
+```jsx
 if (displays.includes(row.display)){ // if we are on one of mouseview displays
     if (screens.includes(screenIndex)){ 
         //stuff goes here
@@ -143,7 +143,7 @@ if (displays.includes(row.display)){ // if we are on one of mouseview displays
 ### Stop tracking mouse/touches and remove overlay
 
 We stop tracking, find the cover we use to hide the trial, then have MouseView.js remove all it's overlay stuff.
-```JavaScript
+```jsx
 mouseview.stopTracking() // stop tracking
 var cover =$('#cover') // get our cover specified earlier
 cover.show() // show it
@@ -158,7 +158,7 @@ Warning! These settings are specific to **your** design. So won't just work on a
 We want to calculate the dimensions on the participant's screen, for data analysis purposes. Because everyone's screens are going to be different sizes and ratios, this is vital. 
 
 Below we have two zones containing images called 'Zone1' and 'Zone2' so we get those in addition to the screen size. 
-```JavaScript
+```jsx
 // frame provides offset for coordinates of the images themselves 
 var gor_frame = {top: parseInt($('.gorilla-frame-responsive')[0].style.top), left: parseInt($('.gorilla-frame-responsive')[0].style.left)}
 // get the zones 
@@ -171,7 +171,7 @@ var right = zone2.getBoundingClientRect()
 
 We then log out these using the gorill.metric() function from the gorilla API. 
 
-```JavaScript
+```jsx
 gorilla.metric({
         response: left.left + 'x' + left.top + 'x' + left.width + 'x' + left.height,
         zone_name: 'zone1_shape',
@@ -188,7 +188,7 @@ gorilla.metric({
 
 Now the most important bit, we save the data for the mousecoordinates overtime. We do this by looping through our data object and logging Gorilla metrics. We also get rid of the cover, ready for the next trial
 
-```JavaScript
+```jsx
 //logout the dimensions of the images 
 for (var i = 0; i < mouseview.datalogger.data.length; i++) {
                     gorilla.metric({
@@ -209,7 +209,7 @@ Here's a full example:
 Warning! These settings are specific to **your** design. So won't just work on any random Gorilla experiment.
 :::
 
-```JavaScript
+```jsx title="Full Example Script"
 
 //Settings for mouseview
 var aperture_size = "5%" // the size of the viewing apeture

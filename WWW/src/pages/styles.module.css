@@ -39,6 +39,17 @@
   z-index: 3;
 }
 
+.authorImage {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  z-index: 3; 
+}
+
 .heroImage {
   width: 500px;
+}
+
+.exampleGif {
+    position: 'absolute';
 }

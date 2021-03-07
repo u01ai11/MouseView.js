@@ -38,7 +38,7 @@ or you can just download a version to your site and include it that way
 ```
 
 Once it is included it adds the mouseview object to the global namespace, you can set various parameters there, and initiate the overlay
-```JavaScript
+```jsx
 // set some parameters
 mouseview.params.apertureSize = 100
 mouseview.params.overlayColour = '#17202A' //i.e. hex black

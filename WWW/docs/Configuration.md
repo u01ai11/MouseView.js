@@ -4,10 +4,14 @@ title: Configuration Options
 sidebar_label: Configuration
 ---
 
+MouseView.js allows you to configure the overlay and aperture, this page gives you an overview of how to do this and what you can configure. 
+
+Checkout [document](Functions.md) for an overview of the methods for controlling MouseView.js.
+
 ## Setting attributes
 
 You can set multiple different attributes of the aperture and the overlay
-```JavaScript
+```jsx title="Attributes Example"
 // size of the aperture viewing window. This can be a percentage in a string or an integer in pixels
 mouseview.params.apertureSize = '5%'
 
