@@ -5,7 +5,7 @@ Attentional mouse tracking. Alternative to online eye tracking.
 
 Documentation and updates are hosted on [MouseView.org](https://mouseview.org). 
 
-This is very much a work in progress, so please **don't use this in production** yet. You have been warned. The known problems are summarised in the issues on this repo.
+The blur library is very much a work in progress, so please **don't use the gaussian blur in your own app, without conacting us**. You have been warned. The known problems are summarised in the issues on this repo.
 
 Demo available [here](https://mouseview-docs.netlify.app/demo.html)
 
@@ -25,6 +25,24 @@ or you can just download a version to your site and include it that way
 ```HTML
 <script src="MouseView.js" type="module"></script>
 ```
+
+or you can use it as an ES6 import in JavaScript
+```jsx
+import * as mouseview from "/MouseView.js";
+mouseview.init()
+```
+
+You can also install it from npm into your app. 
+```
+npm install --save mouseviewjs
+```
+It also (experimentally) supports .mjs imports. But will throw an error if you run 
+
+```jsx
+import "/MouseView.js";
+mouseview.init()
+```
+
 
 Once it is included it adds the mouseview object to the global namespace, you can set various parameters there, and initiate the overlay
 ```JavaScript
