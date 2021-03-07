@@ -1,11 +1,15 @@
+<img src="/WWW/static/img/logo-pink-txt-tight.svg" width="50%"/>
+
 # MouseView.js
 Attentional mouse tracking. Alternative to online eye tracking.
+
+Documentation and updates are hosted on [MouseView.org](https://mouseview.org). 
 
 This is very much a work in progress, so please **don't use this in production** yet. You have been warned. The known problems are summarised in the issues on this repo.
 
 Demo available [here](https://mouseview-docs.netlify.app/demo.html)
 
-<img src="/resources/mouseview_demo.gif" width="350"/>
+<img src="/WWW/static/img/example.gif" width="60%"/>
 
 
 # Getting Started
