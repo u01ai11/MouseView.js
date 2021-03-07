@@ -63,7 +63,7 @@ const authors = [
     {
         name: 'Edwin Dalmaijer',
         imageUrl: 'img/edwin.jpg',
-        personalURL: 'www.dalmaijer.org',
+        personalURL: 'https://www.dalmaijer.org/',
         bio: (
           <>
             Edwin is a cognitive scientist who develops eye-tracking software, and researches how affect, cognition, and environment interact in child development.
