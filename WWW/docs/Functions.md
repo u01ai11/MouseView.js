@@ -30,7 +30,7 @@ mouseview.getData()
 
 // now the namespace contains all the old data, but with the old path name at the start, and the new one at the end 
 console.log(mouseview.datalogger.data)
-
+```
 ## Core Methods 
 
 The table below describes all available core methods 
