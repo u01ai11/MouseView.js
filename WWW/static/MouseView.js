@@ -93,7 +93,9 @@
         overlay.style.zIndex = 99999;
         overlay.style.position = 'fixed';
         overlay.style.display = 'block';
-        overlay.style.top = '0px'
+        overlay.style.top = '0px';
+        overlay.style.left = '0px'
+        overlay.style.bottom = '0px'
         overlay.style.pointerEvents = 'none'
         overlay.setAttribute('data-html2canvas-ignore','true') //so html2canvas doesn't recapture
         

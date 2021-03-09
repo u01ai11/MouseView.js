@@ -444,7 +444,9 @@
         overlay.style.zIndex = 999999;
         overlay.style.position = 'fixed';
         overlay.style.display = 'block';
-        overlay.style.top = '0px'
+        overlay.style.top = '0px';
+        overlay.style.left = '0px'
+        overlay.style.bottom = '0px'
         overlay.style.pointerEvents = 'none'
         
         document.body.appendChild(overlay)// show the layer
