@@ -39,7 +39,27 @@ or you can just download a version to your site and include it that way
 <script src="MouseView.js" type="module"></script>
 ```
 
-Once it is included it adds the mouseview object to the global namespace, you can set various parameters there, and initiate the overlay
+or you can use it as an ES6 import in JavaScript. If this is in a script tag, make sure to add type="module" in the tag.
+
+```jsx
+import * as mouseview from "/MouseView.js";
+mouseview.init()
+```
+
+The above method has the benefit of including all your configuration and data code in one script. Rather than a loading tag and actions seperately. It also means you do not have to worry about calling mouseview before the page has loaded it. 
+
+Here's an example of how you might use this: 
+```HTML
+<script type="module">
+    import * as mouseview from "/MouseView.js";
+    mouseview.params.apertureSize = "20%" // set some custom values
+    mouseview.params.apertureGauss = 30
+    mouseview.init() // now init
+</script>
+```
+
+## Usage
+Once included in one of the mthods above, the library adds the mouseview object to the global namespace, you can set various parameters there, and initiate the overlay
 ```jsx
 // set some parameters
 mouseview.params.apertureSize = 100
@@ -48,3 +68,5 @@ mouseview.params.overlayAlpha = 0.99
 
 // initiate the overlay 
 mouseview.init()
+```
+For a full overview of settings available see [Configuration.](Configuration.md)

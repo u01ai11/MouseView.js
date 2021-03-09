@@ -36,7 +36,7 @@ You can also install it from npm into your app.
 ```
 npm install --save mouseviewjs
 ```
-It also (experimentally) supports .mjs imports. But will throw an error if you run 
+It also (experimentally) supports .mjs imports. But will throw an error if you run this outside a web browser (i.e. in an app or on a server). 
 
 ```jsx
 import "/MouseView.js";
@@ -99,8 +99,8 @@ You can also take a look at how this works in the [examples directory](/examples
 ## Tracking 
 To start recording mouse movements you use the following functions
 ```JavaScript
-mouseview.startRecording() // this starts a record and logs timestamps in console
-mouseview.stopRecording() // this stops and logs the data into the console 
+mouseview.startTracking() // this starts a record and logs timestamps in console
+mouseview.stopTracking() // this stops and logs the data into the console 
 ```
 The tracking data is stored in mouseviews namespace as an Array of objects with properties X, Y, time and event (for tracking data this is always 'sample'). Representing coordinates of the mouse on the viewport (not the page, relevant if scrolling is involved -- this will be updated in time), and the time in milliseconds from the recording start
 ```JavaScript

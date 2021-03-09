@@ -6,7 +6,7 @@ sidebar_label: Configuration
 
 MouseView.js allows you to configure the overlay and aperture, this page gives you an overview of how to do this and what you can configure. 
 
-Checkout [document](Functions.md) for an overview of the methods for controlling MouseView.js.
+Checkout [Functions](Functions.md) for an overview of the methods for controlling MouseView.js.
 
 ## Setting attributes
 
