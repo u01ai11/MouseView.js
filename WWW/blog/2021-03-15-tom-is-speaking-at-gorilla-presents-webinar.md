@@ -1,6 +1,6 @@
 ---
-slug: Tom is Speaking at 'Gorilla Presents' Webinar
-title: Tom is Speaking at 'Gorilla Presents' Webinar
+slug: Tom is Speaking at Gorilla Presents
+title: Tom is Speaking at Gorilla Presents
 author: Alex Anwyl-Irvine
 author_title: PhD student @ MRC CBU
 author_url: https://twitter.com/alexanderirvine
