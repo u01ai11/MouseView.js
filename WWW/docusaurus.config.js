@@ -1,7 +1,7 @@
 module.exports = {
   title: 'MouseView.js',
   tagline: 'Eye tracking without the eyes',
-  url: 'https://mouseview-docs.netlify.app',
+  url: 'https://mouseview.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
