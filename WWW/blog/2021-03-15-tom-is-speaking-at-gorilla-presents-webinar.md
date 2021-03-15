@@ -4,8 +4,8 @@ title: Tom is Speaking at 'Gorilla Presents' Webinar
 author: Alex Anwyl-Irvine
 author_title: PhD student @ MRC CBU
 author_url: https://twitter.com/alexanderirvine
-author_image_url: https://avatars.githubusercontent.com/u/9372039?s=460&u=812ffb853b6b7f20cce774847ddec73190fc95bd&v=4
-tags: Talks, MouseView, Gorilla, Zone
+author_image_url: https://user-images.githubusercontent.com/9372039/110255157-484aad00-7f8a-11eb-8a1e-c7b1fcbc3188.png
+tags: [Talks, MouseView, Gorilla, Zone, news]
 ---
 
 Exciting news! Tom is giving a talk on his research on the 25th March 2021. 
