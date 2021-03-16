@@ -6,7 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>MouseView.js Tilt DEMO</title> 
-        
+        <style>
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+            }
+            
+            body {
+  background: url('img/cat_and_dog.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+        </style>
         <script src="https://mouseview.org/MouseView.js" type="module"></script>
         
         <script>
@@ -14,7 +27,7 @@
                 mouseview.params.overlayAlpha = 0
                 mouseview.params.apertureSize = '10%'
                 mouseview.params.mobileTilt = true
-                mouseview.params.mobileTiltWarn = true
+                mouseview.params.mobileTiltWarn = false
                 
                 mouseview.init()
             }
@@ -22,8 +35,7 @@
     </head> 
     <body> 
         
-    
-        <img src="img/cat_and_dog.jpeg" style = "width: 100%; height: 100% ">
+
         
         
     </body> 
