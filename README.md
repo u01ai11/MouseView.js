@@ -1,5 +1,7 @@
 <img src="/WWW/static/img/logo-pink-txt-tight.svg" width="50%"/>
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/fd61b195-4206-4b25-9308-a6b869ef99b2/deploy-status)](https://app.netlify.com/sites/mouseview-docs/deploys)
+
 # MouseView.js
 Attentional mouse tracking. Alternative to online eye tracking.
 
