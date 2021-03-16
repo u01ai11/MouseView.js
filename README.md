@@ -1,11 +1,9 @@
 <img src="/WWW/static/img/logo-pink-txt-tight.svg" width="50%"/>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/fd61b195-4206-4b25-9308-a6b869ef99b2/deploy-status)](https://app.netlify.com/sites/mouseview-docs/deploys)
-
 # MouseView.js
 Attentional mouse tracking. Alternative to online eye tracking.
 
-Documentation and updates are hosted on [MouseView.org](https://mouseview.org). 
+Documentation and updates are hosted on [MouseView.org](https://mouseview.org). Current site status: [![Netlify Status](https://api.netlify.com/api/v1/badges/fd61b195-4206-4b25-9308-a6b869ef99b2/deploy-status)](https://app.netlify.com/sites/mouseview-docs/deploys)
 
 The blur library is very much a work in progress, so please **don't use the gaussian blur in your own app, without conacting us**. You have been warned. The known problems are summarised in the issues on this repo.
 
