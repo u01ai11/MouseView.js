@@ -41,6 +41,11 @@
     mouseview.params.overlayGaussianFunc = () => {console.log('overlay generated')} //function that can be set, which will run on completion of blurred overlay being generated
     mouseview.params.overlayGaussianInterval = 0 // set to zero if updates hapen on resize events, or set to number of ms you want to wait until recapturing canvas
     
+    // parameters for using device orientation to control aperture
+    mouseview.params.mobileTilt = false // allow the aperture to be controlled by device orientation
+    mouseview.params.mobileTiltWarn = false // warn if not compatible
+    mouseview.params.mobileTiltWarnMessage = 'Sorry, tilt not supported on your device'
+    
     // holder for the screenshot canvas
     mouseview.screen_canvas = {}
     // options for canvas
@@ -124,6 +129,18 @@
         window.addEventListener('scroll', updateOverlayCanvas);
         window.addEventListener('orientationchange', updateOverlayCanvas);
         
+        //set up mobile orientation listeners
+        if(mouseview.params.mobileTilt === true){
+            if (mouseview.params.mobileTiltWarn === true){
+                if (window.DeviceOrientationEvent){
+                    alert(mouseview.params.mobileTiltWarnMessage)
+                }
+            }
+            
+            //setup listener
+            window.addEventListener('deviceorientation', orientationHandler);
+        }
+        
         //setup options for html2canvs
         
         // get dimensions of full document 
@@ -178,6 +195,7 @@
         window.removeEventListener('resize', updateOverlayCanvas);
         window.removeEventListener('scroll', updateOverlayCanvas);
         window.removeEventListener('orientationchange', updateOverlayCanvas);
+        window.removeEventListener('deviceorientation', orientationHandler);
         
         document.removeEventListener('mousemove', event => {
             mouseview.datalogger.x = event.clientX - mouseview.params.offset.X;
@@ -247,14 +265,15 @@
                 
                 var apsize
                 if (typeof(mouseview.params.apertureSize) == "string") {
-                    apsize = window.innerHeight * (parseInt(mouseview.params.apertureSize)/100)
+                    var scalesize = Math.min(window.innerHeight, window.innerWidth)
+                    apsize = scalesize * (parseInt(mouseview.params.apertureSize)/100)
                 } else {
                     apsize = mouseview.params.apertureSize
                 }
                  
                 ctx.arc(mouseview.datalogger.x + mouseview.params.offset.X,
                         mouseview.datalogger.y + mouseview.params.offset.Y, 
-                        apsize, 0, 2 * Math.PI, false);
+                        apsize/2, 0, 2 * Math.PI, false);
                 ctx.fill()
                 ctx.filter = 'none';
 
@@ -407,6 +426,27 @@
             time: mouseview.timing.lastTime - mouseview.timing.startTime, 
             event: event_string
         })
+    }
+    
+    // event handler for orientation changes
+    function orientationHandler(event){
+            var y = event.beta;  // In degree in the range [-180,180)
+            var x = event.gamma; // In degree in the range [-90,90)
+            // Because we don't want to have the device upside down
+            // We constrain the x value to the range [-90,90]
+            if (x >  90) { x =  90};
+            if (x < -90) { x = -90};
+        
+            x += 90;
+            y += 90;
+
+            //scale the angle to orientation coordinates
+            x = mouseview.params.overWidth * (x/180) 
+            y = mouseview.params.overHeight * (y/180) 
+
+            //set the logger to these coordinates
+            mouseview.datalogger.x = x
+            mouseview.datalogger.y = y                
     }
     
     //storing data locally (helpful for multiple pages)
