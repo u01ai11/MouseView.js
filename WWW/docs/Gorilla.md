@@ -28,7 +28,7 @@ It's often easy to specify variables at the start of your script, so they are re
 Let's specify our mouseview settings:
 ```jsx
 //Settings for mouseview
-var aperture_size = "5%" // the size of the viewing apeture
+var aperture_size = "5%" // the size of the viewing aperture
 var overlay_colour = 'black' // the colour of the overlay
 var overlay_alpha = 0.0 // how transparent the overlay is (0 = clear, 1 = solid)
 var overlay_blur = 30 // the SD of the gaussuan blur (higher = blurrier)
@@ -97,7 +97,7 @@ If this display is one we want to use MouseView.js on, and the screen is at the 
                 mouseview.params.overlayColour = overlay_colour 
                 mouseview.params.overlayAlpha = overlay_alpha 
                 mouseview.params.overlayGaussian = overlay_blur 
-                mouseview.params.apetureSize = aperture_size
+                mouseview.params.apertureSize = aperture_size
                 mouseview.params.overlayGaussianFunc = () => {
                     var cover =$('#cover')
                     cover.hide()
