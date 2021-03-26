@@ -21,9 +21,9 @@ There are two ways users (that's you) are likely to use this toolbox.
 1) In a custom app, website, or locally. 
 2) As part of a prebuilt experiment. 
 
-The easiest way of getting started with the basics is the first one, as an app. We cover this setup here. 
+The easiest way of getting started with the basics is the first one, as an app or web-page hosted locally. We cover this setup here. 
 
-If you are interested in 2) then checkout our Gorilla and jsPsych examples. 
+If you are interested in 2) then checkout our [Gorilla](/docs/Gorilla), [jsPsych](/docs/jsPsych) and [PsychoPy/PsychoJS](/docs/PsychoJS-PsychoPy) examples. 
 
 Gorilla is the most straightforward way of buildng a MouseView.js experiment, so we recommend this. You can sign up by visiting [Gorilla.sc](https://www.gorilla.sc/?utm_medium=referral&utm_source=MouseView.js)
 
