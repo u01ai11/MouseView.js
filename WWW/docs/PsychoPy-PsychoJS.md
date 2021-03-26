@@ -1,7 +1,7 @@
 ---
-id: PsychoJS/PsychoPy
-title: Running MouseView.js experiment using PsychoJS/PsychoPy
-sidebar_label: PsychoPy/PsychoJS
+id: PsychoJS-PsychoPy
+title: Running MouseView.js experiment using PsychoJS-PsychoPy
+sidebar_label: PsychoPy-PsychoJS
 ---
 The PsychoPy Builder is a free tool to create experiments that can also write your experiment to JavaScript (PsychoJS) to run online. You can download PsychoPy here: [psychopy.org](https://www.psychopy.org/download.html). Most PsychoPy experiments are hosted online using pavlovia.org [pavlovia.org](https://pavlovia.org/)
 
