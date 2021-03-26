@@ -8,5 +8,5 @@ The current working example is using jsPsych through the form of plugins. A star
 
 You will still have to do your own hosting though
 
-A demo within a jsPsych experiment is available [here](https://github.com/u01ai11/mouseview.js/examples/jspsych/)
+A demo within a jsPsych experiment is available [here](https://github.com/u01ai11/MouseView.js/tree/master/examples/jspsych)
 
