@@ -73,7 +73,7 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
     
     var el = document.createElement('script')
     el.onload  = setup_mouseview
-    el.src = "https://mouseview.netlify.app/MouseView.js"
+    el.src = "https://mouseview.org/MouseView.js"
     document.head.appendChild(el)
    
     
