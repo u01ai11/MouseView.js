@@ -21,35 +21,41 @@ Now you have a copy of the mouseview demo to build on yourself! (the changes tha
 This demo is a spin off of the dynamic_selective_inspect demo in pavlovia https://run.pavlovia.org/demos/dynamic_selective_inspect/html/ which does something similar, but less cool. With mouseview you can dynamically manipulate the parameters of your mask in a much more flexible way. 
 
 ## General settings
-
-Before our search trial, the general settings for each parameter are initialized in the "init_mouseview_trial" routine. The parameters are set in the are set in the "init_mouse_view_code" code component as follows:
+Before our search trial, the general settings for each parameter are initialized in the "init_mouseview_trial" routine. The parameters are set in the "init_mouse_view_code" code component as follows:
 
 ```jsx
+// Show the cover (hidden by mouseview after it's initialized
+$('#cover').css('opacity', 1);
+
 // Settings for mouseview
 mouseview.params.overlayColour = '#fff'; //String containing CSS Keyword, hexadecimal, or HSL code.
-mouseview.params.overlayAlpha = alphaLevel; //Number-Decimal (0-1). this can be a number but in this demo we change the value trial by trial from a conditions file
+mouseview.params.overlayAlpha = alphaLevel; //Number-Decimal (0-1). this can be a number but here we are demonstrating how you could feed in parameters from a conditions file
 mouseview.params.overlayGaussian = blur; //Number-Integer (pixels)// again we are setting this using a conditions file on each trial
 mouseview.params.overlayGaussianInterval = 1000; //Number-Integer or Float (milliseconds)
 mouseview.timing.sampleRate = 16.66; //Number-Integer or Float (milliseconds) PLEASE NOTE THIS IS DEPENDANT ON THE REFRESH RATE OF THE MONITOR
-mouseview.params.overlayGaussianFunc = ()=> {cover.hide(); continueRoutine = false};// remove the cover and end the routine when the overlay has been initialized
+mouseview.params.overlayGaussianFunc = ()=> {$('#cover').css('opacity', 0);};// remove the cover when the overlay has been initialized
 mouseview.params.apertureSize = '10%'; // Number-Integer (pixels) or String (‘x%’)
 mouseview.params.apertureGauss = 10; //Number-Integer (pixels)
-// initiate the overlay 
-mouseview.init();
+// initiate mouseview, go to next routine when done
+$.when(mouseview.init()).then(() => {
+    continueRoutine = false;
+});
 ````
 
-For more information on each parameter, see the mouseview article itself. This code is also preceeded by code in which a "cover" is generated to block the scene whilst the overlay is being created, preventing any sneak previews of your stimuli:
+For more information on each parameter, see the mouseview article itself. MouseView is preprared in the the "intro_mouseview_trial" routine, where we import the MouseView library and create a "cover" that blocks the scene whilst the overlay is being created, preventing any sneak previews of your stimuli:
 
 ```jsx 
-if ((trialCount === 0)) {//only make a cover on the first trial
-    var cover = document.createElement("div"); 
-    cover.style.cssText = "background: #808080; position: fixed; bottom: 0; right: 0; left: 0; top: 0";//this sets the color of the cover
-    cover.setAttribute('data-html2canvas-ignore','true')
-    cover.id = 'cover'
-    document.body.append(cover)
-}
-var cover =$('#cover')
-cover.show()
+// Load the MouseView module. 
+// MouseView attaches itself to the window as mouseview, so use it
+// via the variable "mouseview"
+import * as MouseViewModule from './js/MouseView-0.2-alpha.js';
+
+// Create cover screen that we use to hide contents until mouseview is ready
+let coverElement = document.createElement("div"); 
+coverElement.style.cssText = "background: #808080; position: fixed; bottom: 0; right: 0; left: 0; top: 0; opacity: 0; pointer-events: none;";
+coverElement.setAttribute('data-html2canvas-ignore','true')
+coverElement.id = 'cover'
+document.body.append(coverElement)
 ```
 
 ## When the trail starts
