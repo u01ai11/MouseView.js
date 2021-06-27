@@ -100,7 +100,7 @@ const collabs = [
         bio: (
           <>
             Queens Emotion and Risky Behaviour in Youth - <b> Queens University, Belfast </b>
- <          </>
+         </>
         ),
     }
 ];
