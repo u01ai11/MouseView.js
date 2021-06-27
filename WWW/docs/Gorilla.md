@@ -10,8 +10,85 @@ Using Gorilla is the quickest and easiest way to get your MouseView.js experimen
 # Task Builder
 The Task builder is where the MouseView.js script is configured and installed. There are two ways to do this, using a drag and drop zone (the easiest), or using the script tab (less easy). 
 
+
 # Drag and Drop Zone
-Currently a beta drag and drop zone is under development, so it's not quite ready yet. We'll update this doc with a link as soon as possible. 
+
+Currently a drag and drop zone is under development. It's available on Gorilla via their [contact form](https://app.gorilla.sc/support/contactform). The documentation for this zone is available [here] and also below. 
+
+---
+
+[Try out a Mouse View Zone Example](https://app.gorilla.sc/admin/task/241912/editor)
+
+---
+
+**Setting up the MouseView Zone:**
+
+1. Upload a background stimuli to your screen then place the MouseView Zone on each of your Task Screens where you wish to use mouse view.
+
+1. Edit Configuration settings of the MouseView Zone - see details below.
+
+1) **Use the (setting) mode.**
+
+Setting (record or upload : Type either 'record' or 'upload' to choose the operation mode for the Zone.
+Default = record; If no mode is set the MouseView Zone will default to the 'record' mode. 
+
+**Record**: In record mode the MouseView Zone will record participant video and return the recorded video to the MouseView Zone Metrics.
+
+**Upload**: You only need to use upload if you want to upload on at, say, the end of a task or end of a block. Otherwise, use the Continue Recording setting instead.
+
+---
+
+2) **Prefix filename with (setting) for captured data** 
+
+Setting (text): Type a name to identify the mouse tracking data file.
+
+Default = mouseview; By default, the MouseView Zone will produce data with the filename mouseview-1-3, or similar.
+
+When set to any text, this changes the filename of the MouseView data i.e. if set to 'MouseTask', the file might be named 'MouseTask-1-3'.
+
+*Note: Only use alpha-numeric characters in your file names. Do not use special characters as this could prevent you from retrieving data files.*
+
+---
+
+3) **If (setting) continue recording after the end of this screen.**
+
+Only set this if you are recording data across multiple screens, and ensure that the last screen does not have this set. 
+Choose 1 (continue recording) or 0 (stop recording). 
+Default: 0
+
+---
+
+**Mouseview specific settings**
+
+---
+
+1) **Overlay Colour: (setting).**
+
+Enter the colour for the overlay as a colour name or hexcode. Default: black
+
+---
+
+2) **Overlay Alpha: (setting).**
+
+Enter the alpha (transparency) value for the overlay as a float between 0.0 and 1.0. Default: 0.8
+
+---
+
+3) **Overlay Gaussian Blur: (setting) pixels.**
+
+Enter the standard deviation, as a number of pixels, for the Gaussian Blur. Higher numbers = more blur. Default: 20
+
+---
+
+4) **Aperture Size: (setting) % of screen space.**
+
+Enter the size of the viewing aperture as a number representing percentage of screen. Default: 5 (i.e. 5%)
+
+---
+
+Click to view an [Example](https://app.gorilla.sc/admin/task/241912/editor) of a simple **Task** which makes use of the MouseView Zone.
+
+---
 
 # Task Builder Script
 
