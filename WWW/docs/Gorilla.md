@@ -13,7 +13,7 @@ The Task builder is where the MouseView.js script is configured and installed. T
 
 ## Drag and Drop Zone
 
-Currently a drag and drop zone is under development. It's available on Gorilla via their [contact form](https://app.gorilla.sc/support/contactform). The documentation for this zone is available [here] and also below. 
+Currently a drag and drop zone is under development. It's available on Gorilla via their [contact form](https://app.gorilla.sc/support/contactform). The documentation for this zone is available [here](https://support.gorilla.sc/support/reference/task-builder-zones#mousetrackingzonebeta) and also below. 
 
 ---
 
