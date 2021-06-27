@@ -11,7 +11,7 @@ Using Gorilla is the quickest and easiest way to get your MouseView.js experimen
 The Task builder is where the MouseView.js script is configured and installed. There are two ways to do this, using a drag and drop zone (the easiest), or using the script tab (less easy). 
 
 
-# Drag and Drop Zone
+## Drag and Drop Zone
 
 Currently a drag and drop zone is under development. It's available on Gorilla via their [contact form](https://app.gorilla.sc/support/contactform). The documentation for this zone is available [here] and also below. 
 
@@ -21,7 +21,7 @@ Currently a drag and drop zone is under development. It's available on Gorilla v
 
 ---
 
-**Setting up the MouseView Zone:**
+### Setting up the MouseView Zone
 
 1. Upload a background stimuli to your screen then place the MouseView Zone on each of your Task Screens where you wish to use mouse view.
 
@@ -58,7 +58,7 @@ Default: 0
 
 ---
 
-**Mouseview specific settings**
+### Mouseview Zone Settings
 
 ---
 
@@ -90,7 +90,7 @@ Click to view an [Example](https://app.gorilla.sc/admin/task/241912/editor) of a
 
 ---
 
-# Task Builder Script
+## Task Builder Script
 
 :::caution 
 This assumes you to know a bit of JavaScript, if you are new to this please check out Gorilla's tutorials on Task Builder scripting first. 
@@ -98,7 +98,7 @@ This assumes you to know a bit of JavaScript, if you are new to this please chec
 
 To activate the overlay, track across a single screen, and pip in data there are several elements that need to be included in your Script tab. 
 
-## General settings
+### General settings
 
 It's often easy to specify variables at the start of your script, so they are referred to later. It's easy to change them.
 
@@ -121,7 +121,7 @@ var screens = [2] // in these displays what screens are blurred
 
 Gorilla gives us hooks that run everytime given events happen. We use these to setup, start and stop MouseView.js. We use two here, OnScreenStart and OnScreenFinish
 
-## On Screen Start
+### On Screen Start
 
 There are several things you need to do at the start of a screen. So we use this hook. It has the form:
 
@@ -193,7 +193,7 @@ If this display is one we want to use MouseView.js on, and the screen is at the 
 
 ```
 
-## On Screen Finish
+### On Screen Finish
 
 At the end of the screen we want to do several things:
 - Stop tracking
@@ -278,7 +278,7 @@ for (var i = 0; i < mouseview.datalogger.data.length; i++) {
 cover.hide()
 ```
 
-## full example script:
+### full example script:
 
 Here's a full example:
 
