@@ -72,6 +72,40 @@ const authors = [
     }
 ];
 
+const collabs = [
+    {
+        name: 'Prof. Bunmi Olatuni',
+        imageUrl: 'img/bunmi.png',
+        personalURL: 'https://earlatvanderbilt.wordpress.com/',
+        bio: (
+          <>
+            Emotion and Anxiety Research Laboratory - Vanderbilt University
+          </>
+        ),
+    },
+    {
+        name: 'Prof. Samantha Dawson',
+        imageUrl: 'img/samantha.jpg',
+        personalURL: 'https://swelllab.psych.ubc.ca/person/samantha-dawson/',
+        bio: (
+          <>
+            Sexuality and Well-being Lab - University of British Columbia 
+          </>
+        ),
+    },
+    {
+        name: 'Prof. Jeremy Stewart',
+        imageUrl: 'img/jeremy.jpg',
+        personalURL: 'https://www.querbylab.com/',
+        bio: (
+          <>
+            Queens Emotion and Risky Behaviour in Yourh - Queens University, Belfast
+          </>
+        ),
+    }
+];
+
+
 function Feature({imageUrl, title, description}) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
@@ -199,7 +233,21 @@ function Home() {
             </div>
           </section>
         )}
-               
+{collabs && collabs.length > 0 && (
+          <section className={styles.features}>
+            <div className="container">
+            <div className="text--center">
+               <h1>Collaborators</h1>
+                <br></br>
+             </div>
+              <div className="row">
+                {authors.map((props, idx) => (
+                  <Author key={idx} {...props} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}     
       </main>
     </Layout>
   );
