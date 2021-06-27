@@ -15,7 +15,7 @@ const features = [
     imageUrl: 'img/undraw_open_source.svg',
     description: (
       <>
-        MouseView.js is free to use and open source.
+        MouseView.js is a tool to generate attentional maps of websites and experiments. It is free to use and open source.
       </>
     ),
   },
@@ -24,7 +24,7 @@ const features = [
     imageUrl: 'img/undraw_progressive_app.svg',
     description: (
       <>
-        Despite its name MouseView.js has support for touch-screen devices too.
+        MouseView.js has support for touch-screen devices too. It works on static content and also dynamic content (like videos). 
       </>
     ),
   },
@@ -33,7 +33,7 @@ const features = [
     imageUrl: 'img/undraw_split_testing.svg',
     description: (
       <>
-        MouseView.js has pre-made working examples in Gorilla.sc and jsPsych. 
+        MouseView.js has pre-made working examples in Gorilla.sc and jsPsych.
       </>
     ),
   },
@@ -56,7 +56,7 @@ const authors = [
         personalURL: 'http://www.peep-lab.org/',
         bio: (
           <>
-            Tom is a Clinical psychologist studying disgust, emotion, motivation with eyetracking. 
+            Tom is a Clinical psychologist studying disgust, emotion, and motivation with eyetracking. 
           </>
         ),
     },
@@ -99,7 +99,7 @@ const collabs = [
         personalURL: 'https://www.querbylab.com/',
         bio: (
           <>
-            Queens Emotion and Risky Behaviour in Youth - <b> Queens University, Belfast </b>
+            Queen&apos;s Emotion and Risky Behaviour in Youth - <b> Queen&apos;s University </b>
          </>
         ),
     }
