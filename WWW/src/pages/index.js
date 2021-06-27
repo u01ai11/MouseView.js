@@ -79,7 +79,7 @@ const collabs = [
         personalURL: 'https://earlatvanderbilt.wordpress.com/',
         bio: (
           <>
-            Emotion and Anxiety Research Laboratory - Vanderbilt University
+            Emotion and Anxiety Research Laboratory - <b> Vanderbilt University </b>
           </>
         ),
     },
@@ -89,7 +89,7 @@ const collabs = [
         personalURL: 'https://swelllab.psych.ubc.ca/person/samantha-dawson/',
         bio: (
           <>
-            Sexuality and Well-being Lab - University of British Columbia 
+            Sexuality and Well-being Lab - <b> University of British Columbia </b>
           </>
         ),
     },
@@ -99,8 +99,8 @@ const collabs = [
         personalURL: 'https://www.querbylab.com/',
         bio: (
           <>
-            Queens Emotion and Risky Behaviour in Yourh - Queens University, Belfast
-          </>
+            Queens Emotion and Risky Behaviour in Youth - <b> Queens University, Belfast </b>
+ <          </>
         ),
     }
 ];
@@ -230,6 +230,7 @@ function Home() {
                   <Author key={idx} {...props} />
                 ))}
               </div>
+              <hr></hr>
             </div>
           </section>
         )}
@@ -238,6 +239,7 @@ function Home() {
             <div className="container">
             <div className="text--center">
                <h1>Collaborators</h1>
+               Early adopters running research using MouseView.js:
                 <br></br>
              </div>
               <div className="row">
