@@ -85,7 +85,7 @@ const collabs = [
     },
     {
         name: 'Prof. Samantha Dawson',
-        imageUrl: 'img/samantha.jpg',
+        imageUrl: 'img/samantha.png',
         personalURL: 'https://swelllab.psych.ubc.ca/person/samantha-dawson/',
         bio: (
           <>
@@ -95,7 +95,7 @@ const collabs = [
     },
     {
         name: 'Prof. Jeremy Stewart',
-        imageUrl: 'img/jeremy.jpg',
+        imageUrl: 'img/jeremy.png',
         personalURL: 'https://www.querbylab.com/',
         bio: (
           <>
@@ -241,7 +241,7 @@ function Home() {
                 <br></br>
              </div>
               <div className="row">
-                {authors.map((props, idx) => (
+                {collabs.map((props, idx) => (
                   <Author key={idx} {...props} />
                 ))}
               </div>
