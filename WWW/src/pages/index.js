@@ -210,10 +210,10 @@ function Home() {
         <div className="container">
             <div className="text--center">
                 <h1>Publications</h1>
-<p>Read our preprint on PsyArXiv <a href='https://doi.org/10.31234/osf.io/rsdwg' target="_blank">here</a></p>
+<p>Read our paper published at Behavior Research Methods <a href='https://doi.org/10.3758/s13428-021-01703-5' target="_blank">here</a></p>
 <p>If you use this tool please cite:</p>
-                <code style ={{width: '70%'}}>Anwyl-Irvine, A. L., Armstrong, T., & Dalmaijer, E. S. (2021, March 7). 
-                 MouseView.js: Reliable and valid attention tracking in web-based experiments using a cursor-directed aperture. https://doi.org/10.31234/osf.io/rsdwg </code>
+                <code style ={{width: '70%'}}>Anwyl-Irvine, A. L., Armstrong, T., & Dalmaijer, E. S. (2021, September 29). 
+                 MouseView.js: Reliable and valid attention tracking in web-based experiments using a cursor-directed aperture. <i>Behavior Research Methods</i>, https://doi.org/10.3758/s13428-021-01703-5 </code>
                 
             </div>
             <hr></hr>
