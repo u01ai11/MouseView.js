@@ -9,6 +9,12 @@ The blur library is very much a work in progress, so please **don't use the gaus
 
 Demo available [here](https://mouseview-docs.netlify.app/demo.html)
 
+Details and validation published in Behavior Research Methods [here](https://doi.org/10.3758/s13428-021-01703-5)
+
+If you use this tool please cite:
+
+```Anwyl-Irvine, A. L., Armstrong, T., & Dalmaijer, E. S. (2021, September 29). MouseView.js: Reliable and valid attention tracking in web-based experiments using a cursor-directed aperture. Behavior Research Methods, https://doi.org/10.3758/s13428-021-01703-5```
+
 <img src="/WWW/static/img/example.gif" width="60%"/>
 
 
