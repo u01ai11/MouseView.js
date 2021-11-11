@@ -20,7 +20,7 @@
                 
                 // get url parameter and set as iframe source
                 const iframe = document.getElementById('frame');
-                iframe.src = iframe.src + window.location.search;
+                iframe.src = window.location.search.split("?")[1];
                 
                 mouseview.params.overlayAlpha = 0.95
                 mouseview.params.apertureSize = '10%'
