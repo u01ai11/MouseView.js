@@ -62,8 +62,8 @@
     mouseview.params.offset.Y = 0
     
     // holders for current mouseposition
-    mouseview.datalogger.X = null
-    mouseview.datalogger.Y = null
+    mouseview.datalogger.x = null
+    mouseview.datalogger.y = null
     
     // holders for recording state
     mouseview.datalogger.tracking = false
@@ -132,7 +132,7 @@
         //set up mobile orientation listeners
         if(mouseview.params.mobileTilt === true){
             if (mouseview.params.mobileTiltWarn === true){
-                if (window.DeviceOrientationEvent){
+                if (!window.DeviceOrientationEvent){
                     alert(mouseview.params.mobileTiltWarnMessage)
                 }
             }
@@ -373,8 +373,8 @@
         var width = Math.max( body.scrollWidth, body.offsetWidth, 
                        html.clientWidth, html.scrollWidth, html.offsetWidth );
         mouseview.h2canv_opts = {	
-            scrollY: -mouseview.params.offset.X,
             scrollX: -mouseview.params.offset.X,
+            scrollY: -mouseview.params.offset.Y,
             width: width,
             height: height,
             logging: true
@@ -403,7 +403,7 @@
     // Stop tracking the mouse movements
     function stopTracking(){
         mouseview.datalogger.tracking = false
-        mouseview.timing.finishTimeTime = window.performance.now()
+        mouseview.timing.finishTime = window.performance.now()
         console.log('Stopped recording data')
         console.log(mouseview.datalogger.data)
     }
@@ -421,8 +421,8 @@
     // log a random event 
     function logEvent(event_string){
         mouseview.datalogger.data.push({
-            x: mouseview.datalogger.X,
-            y: mouseview.datalogger.Y,
+            x: mouseview.datalogger.x,
+            y: mouseview.datalogger.y,
             time: mouseview.timing.lastTime - mouseview.timing.startTime, 
             event: event_string
         })
@@ -458,7 +458,7 @@
     //getting local data (helpful for plotting data)
     
     function getData(){
-        mouseview.datalogger.data = JSON.parse(localStorage.getItem("mouseview_data") || []);
+        mouseview.datalogger.data = JSON.parse(localStorage.getItem("mouseview_data") || "[]");
         mouseview.datalogger.data.push(window.location.pathname) // add pathname to end of data
     }
     
