@@ -38,6 +38,7 @@ The start plugin takes these parameters (all optional):
 | `aperture_size` | `'5%'` | Diameter of the aperture, a percentage string or pixels |
 | `aperture_gauss` | `10` | SD in pixels of the aperture's gaussian edge |
 | `aperture_mode` | `'classic'` | `'classic'` looks exactly like MouseView.js 0.1.x, `'clear'` gives a fully clear aperture |
+| `update_mode` | `'move'` | `'move'` makes the aperture follow the mouse/finger, `'click'` moves it only on a click/tap |
 | `overlay_colour` | `'Black'` | Colour of the overlay |
 | `overlay_alpha` | `0.8` | Opacity of the overlay, 0 to 1 |
 | `overlay_gaussian` | `20` | SD in pixels of the blur under the overlay |

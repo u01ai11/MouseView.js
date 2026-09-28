@@ -11,7 +11,7 @@ var jsPsychMouseviewStop = (function (jspsych) {
 
     var info = {
         name: 'mouseview-stop',
-        version: '0.2.0',
+        version: '0.4.0',
         parameters: {},
         data: {
             /** x position of each sample and event, in page pixels */

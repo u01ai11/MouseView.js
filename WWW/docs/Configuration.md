@@ -21,6 +21,9 @@ mouseview.params.apertureGauss = 10
 // 'classic' draws the aperture exactly as MouseView.js 0.1.x did, 'clear' makes it fully clear (see below)
 mouseview.params.apertureMode = 'classic'
 
+// 'move' (default) makes the aperture follow the mouse/finger, 'click' only moves it on a click or tap
+mouseview.params.updateMode = 'move'
+
 // The colour of the overlay, this can be a colour word ('black', 'blue') or a hex string
 mouseview.params.overlayColour = 'black' //i.e. hex black
 
@@ -54,6 +57,7 @@ In `'classic'` mode (the default) the overlay looks exactly as it did in MouseVi
 | ```mouseview.params.apertureSize```           | Diameter of the viewing aperture in pixels, or as a percentage of the smaller of the window's width and height.                              | Number-Integer (pixels) or String (‘x%’)                 | ‘5%’                                      |
 | ```mouseview.params.apertureGauss```           | Standard Deviation for Gaussian edge.                                                                                                       | Number-Integer (pixels)                                  | 10                                        |
 | ```mouseview.params.apertureMode```            | How the aperture is drawn, see Aperture modes above.                                                                                        | ‘classic’ or ‘clear’                                     | ‘classic’                                 |
+| ```mouseview.params.updateMode```              | How the aperture follows the participant. `'move'` follows the mouse/finger; `'click'` moves it only on a click/tap, and logs each one as a `'click'` event while tracking. | ‘move’ or ‘click’                                        | ‘move’                                    |
 | **Overlay**                                  |                                                                                                                                             |                                                          |                                           |
 | ```mouseview.params.overlayColour```           | Colour of overlay.                                                                                                                          | String containing CSS Keyword, hexadecimal, or HSL code. | ‘black’                                   |
 | ```mouseview.params.overlayAlpha```            | Transparency of overlay.                                                                                                                    | Number-Decimal (0-1).                                    | 0.8                                       |
