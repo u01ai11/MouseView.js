@@ -29,6 +29,11 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
         default: "classic",
         description: "'classic' draws the aperture as MouseView.js 0.1.x did, 'clear' makes the aperture fully clear"
       },
+      update_mode: {
+        type: jsPsych.plugins.parameterType.STRING,
+        default: "move",
+        description: "'move' makes the aperture follow the mouse/finger, 'click' moves it only on a click/tap"
+      },
       overlay_colour: {
         type: jsPsych.plugins.parameterType.STRING,
         default: "Black",
@@ -88,6 +93,7 @@ jsPsych.plugins["Mouseview-Start"] = (function() {
             mouseview.params.apertureSize = trial.aperture_size
             mouseview.params.apertureGauss = trial.aperture_gauss
             mouseview.params.apertureMode = trial.aperture_mode
+            mouseview.params.updateMode = trial.update_mode
             mouseview.params.overlayColour = trial.overlay_colour
             mouseview.params.overlayAlpha = trial.overlay_alpha
             mouseview.params.overlayGaussian = trial.overlay_gaussian

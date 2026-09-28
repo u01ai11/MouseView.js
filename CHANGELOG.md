@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0
+
+### New features
+- **Click mode** ([#23](https://github.com/u01ai11/MouseView.js/issues/23)). Set `params.updateMode = 'click'` and the aperture only moves when the participant clicks or taps. Each click is logged as a `'click'` event while tracking. The jsPsych start plugins take a new `update_mode` parameter.
+- **Pause the aperture** ([#22](https://github.com/u01ai11/MouseView.js/issues/22)). `mouseview.pauseUpdating()` freezes the aperture where it is, without removing the overlay, and `mouseview.resumeUpdating()` lets it follow the mouse again. `mouseview.datalogger.paused` shows the current state.
+- **Hide and show the overlay** ([#17](https://github.com/u01ai11/MouseView.js/issues/17)). `mouseview.hide()` and `mouseview.show()` change the overlay's opacity, so it can be set up in advance and shown on the next frame. Works with the CSS and fallback renderers.
+- Pausing, resuming, hiding and showing are logged as events while tracking (`'updating_paused'`, `'updating_resumed'`, `'overlay_hidden'`, `'overlay_shown'`).
+
+### Timing ([#8](https://github.com/u01ai11/MouseView.js/issues/8))
+- `startTracking()` logs a sample straight away, so every recording starts with a sample at time 0.
+- Sampling allows for frame jitter. With the default 16.66ms `sampleRate` on a 60Hz screen, frames that arrived after 16.6ms were skipped, which could halve the number of samples.
+
+
 ## 0.2.0
 
 ### The overlay no longer uses screenshots

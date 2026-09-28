@@ -17,7 +17,7 @@
     window.mouseview = window.mouseview || {};
     var mouseview = window.mouseview;
 
-    mouseview.version = '0.2.0'
+    mouseview.version = '0.4.0'
 
     // set up name spaces for specific purposes
     mouseview.datalogger = mouseview.datalogger || {} // for logging data
@@ -33,6 +33,10 @@
     // 'classic' reproduces the look of MouseView.js <= 0.1.x exactly (the overlay is not fully removed inside the aperture)
     // 'clear' gives a single, fully clear aperture
     mouseview.params.apertureMode = 'classic'
+    // how the aperture follows the participant
+    // 'move': the aperture follows the mouse/finger
+    // 'click': the aperture only jumps to the last click/tap, which is logged as a 'click' event
+    mouseview.params.updateMode = 'move'
 
     // parameters for the overlay
     mouseview.params.overlayColour = 'black' //i.e. hex black
@@ -71,6 +75,7 @@
 
     // holders for recording state
     mouseview.datalogger.tracking = false
+    mouseview.datalogger.paused = false // true while the aperture position is frozen by pauseUpdating
 
     // which renderer drew the overlay ('css', 'css-noblur' or 'fallback'), and how the aperture was drawn
     mouseview.datalogger.renderer = null
@@ -95,6 +100,7 @@
     var handlers = {} // bound listeners, so removeAll can remove them
     var initToken = 0 // bumped by removeAll, so late async work from an old init does nothing
     var positionRaf = null
+    var hidden = false // set by hide/show, applied to the overlay layers
 
     // Private functions
 
@@ -371,6 +377,8 @@
         }
         if (renderer || document.getElementById('overlay')) { removeAll() }
         var token = ++initToken
+        mouseview.datalogger.paused = false
+        hidden = false
         mouseview.datalogger.renderer = null
         mouseview.datalogger.apertureMode = null
 
@@ -407,6 +415,7 @@
                 }
                 mouseview.params.overlayGaussianFunc()
             })
+            applyVisibility()
         }
 
         if (chosen === 'fallback'){
@@ -442,10 +451,6 @@
     }
 
     function addListeners(){
-        handlers.mousemove = function(event){ setPosition(event.clientX, event.clientY) }
-        handlers.touch = function(event){
-            if (event.touches && event.touches.length) { setPosition(event.touches[0].clientX, event.touches[0].clientY) }
-        }
         handlers.scroll = function(){
             mouseview.params.offset.X = window.pageXOffset
             mouseview.params.offset.Y = window.pageYOffset
@@ -453,38 +458,111 @@
         }
         handlers.resize = function(){ updateOverlayCanvas() }
 
-        document.addEventListener('mousemove', handlers.mousemove, false)
-        document.addEventListener('touchstart', handlers.touch, false)
-        document.addEventListener('touchmove', handlers.touch, false)
         window.addEventListener('scroll', handlers.scroll)
         window.addEventListener('resize', handlers.resize)
         window.addEventListener('orientationchange', handlers.resize)
 
+        if(mouseview.params.mobileTilt === true && mouseview.params.mobileTiltWarn === true){
+            if (!window.DeviceOrientationEvent){
+                alert(mouseview.params.mobileTiltWarnMessage)
+            }
+        }
+
+        addPositionListeners()
+    }
+
+    // the listeners that move the aperture, kept separate so pauseUpdating can remove just these
+    function addPositionListeners(){
+        if (mouseview.params.updateMode === 'click'){
+            handlers.press = function(event){
+                var point = event.touches ? event.touches[0] : event
+                if (!point) { return }
+                setPosition(point.clientX, point.clientY)
+                if (mouseview.datalogger.tracking === true) { logEvent('click') }
+            }
+            // pointerdown covers mouse and touch in one event, so a tap isn't logged twice
+            handlers.pressTypes = window.PointerEvent ? ['pointerdown'] : ['mousedown', 'touchstart']
+            handlers.pressTypes.forEach(function(type){ document.addEventListener(type, handlers.press, false) })
+        } else {
+            if (mouseview.params.updateMode !== 'move'){
+                console.warn("MouseView.js: unknown updateMode '" + mouseview.params.updateMode + "', using 'move'")
+            }
+            handlers.mousemove = function(event){ setPosition(event.clientX, event.clientY) }
+            handlers.touch = function(event){
+                if (event.touches && event.touches.length) { setPosition(event.touches[0].clientX, event.touches[0].clientY) }
+            }
+            document.addEventListener('mousemove', handlers.mousemove, false)
+            document.addEventListener('touchstart', handlers.touch, false)
+            document.addEventListener('touchmove', handlers.touch, false)
+        }
+
         //set up mobile orientation listeners
         if(mouseview.params.mobileTilt === true){
-            if (mouseview.params.mobileTiltWarn === true){
-                if (!window.DeviceOrientationEvent){
-                    alert(mouseview.params.mobileTiltWarnMessage)
-                }
-            }
             handlers.orientation = orientationHandler
             window.addEventListener('deviceorientation', handlers.orientation)
         }
     }
 
-    function removeListeners(){
+    function removePositionListeners(){
+        if (handlers.press){
+            handlers.pressTypes.forEach(function(type){ document.removeEventListener(type, handlers.press, false) })
+        }
         if (handlers.mousemove) { document.removeEventListener('mousemove', handlers.mousemove, false) }
         if (handlers.touch){
             document.removeEventListener('touchstart', handlers.touch, false)
             document.removeEventListener('touchmove', handlers.touch, false)
         }
+        if (handlers.orientation) { window.removeEventListener('deviceorientation', handlers.orientation) }
+        delete handlers.press
+        delete handlers.pressTypes
+        delete handlers.mousemove
+        delete handlers.touch
+        delete handlers.orientation
+    }
+
+    function removeListeners(){
+        removePositionListeners()
         if (handlers.scroll) { window.removeEventListener('scroll', handlers.scroll) }
         if (handlers.resize){
             window.removeEventListener('resize', handlers.resize)
             window.removeEventListener('orientationchange', handlers.resize)
         }
-        if (handlers.orientation) { window.removeEventListener('deviceorientation', handlers.orientation) }
         handlers = {}
+    }
+
+    // freeze the aperture where it is, the overlay stays up
+    function pauseUpdating(){
+        if (mouseview.datalogger.paused === true) { return }
+        mouseview.datalogger.paused = true
+        removePositionListeners()
+        if (mouseview.datalogger.tracking === true) { logEvent('updating_paused') }
+    }
+
+    function resumeUpdating(){
+        if (mouseview.datalogger.paused !== true) { return }
+        mouseview.datalogger.paused = false
+        if (renderer) { addPositionListeners() }
+        if (mouseview.datalogger.tracking === true) { logEvent('updating_resumed') }
+    }
+
+    // hide/show change opacity rather than removing the overlay, so it is ready to show again on the next frame
+    function applyVisibility(){
+        ['overlay', 'overlay-blur'].forEach(function(id){
+            var el = document.getElementById(id)
+            if (el) { el.style.opacity = hidden ? '0' : '' }
+        })
+    }
+
+    function hide(){
+        hidden = true
+        applyVisibility()
+        if (mouseview.datalogger.tracking === true) { logEvent('overlay_hidden') }
+    }
+
+    function show(){
+        hidden = false
+        applyVisibility()
+        if (mouseview.datalogger.tracking === true) { logEvent('overlay_shown') }
     }
 
     function removeAll(){
@@ -507,6 +585,8 @@
 
         mouseview.datalogger.x = null
         mouseview.datalogger.y = null
+        mouseview.datalogger.paused = false
+        hidden = false
     }
 
     // re-apply the parameters and window size to the overlay
@@ -520,10 +600,11 @@
 
     function sampleLoop(timestamp){
         if (mouseview.datalogger.tracking !== true) { return }
-        // the first frame's timestamp can be from before startTracking was called
-        if (timestamp >= mouseview.timing.startTime && (timestamp - mouseview.timing.lastTime) >= mouseview.timing.sampleRate) {
-            var x = mouseview.datalogger.x, y = mouseview.datalogger.y
-            logPosition(x == null ? null : x + mouseview.params.offset.X, y == null ? null : y + mouseview.params.offset.Y, timestamp)
+        // allow for frame jitter, otherwise a 16.66ms target on a 60Hz screen skips frames that arrive after 16.6ms
+        var tolerance = Math.min(4, mouseview.timing.sampleRate / 4)
+        if ((timestamp - mouseview.timing.lastTime) >= mouseview.timing.sampleRate - tolerance) {
+            var pos = pagePosition()
+            logPosition(pos.x, pos.y, timestamp)
             mouseview.timing.lastTime = timestamp // update last timestamp
         }
         mouseview.animator_raf = requestAnimationFrame(sampleLoop)
@@ -534,7 +615,10 @@
         if (mouseview.datalogger.tracking === true) { return }
         mouseview.datalogger.tracking = true
         mouseview.timing.startTime = window.performance.now()
-        mouseview.timing.lastTime = 0.0
+        mouseview.timing.lastTime = mouseview.timing.startTime
+        // log where the aperture is when tracking starts, so every recording has a sample at time 0
+        var pos = pagePosition()
+        logPosition(pos.x, pos.y, mouseview.timing.startTime)
         mouseview.animator_raf = requestAnimationFrame(sampleLoop)
     }
 
@@ -543,6 +627,15 @@
         mouseview.datalogger.tracking = false
         cancelAnimationFrame(mouseview.animator_raf)
         mouseview.timing.finishTime = window.performance.now()
+    }
+
+    // current aperture position in page coordinates, null until the mouse has moved
+    function pagePosition(){
+        var x = mouseview.datalogger.x, y = mouseview.datalogger.y
+        return {
+            x: x == null ? null : x + mouseview.params.offset.X,
+            y: y == null ? null : y + mouseview.params.offset.Y
+        }
     }
 
     // logging data (page coordinates)
@@ -557,10 +650,10 @@
 
     // log a random event
     function logEvent(event_string){
-        var x = mouseview.datalogger.x, y = mouseview.datalogger.y
+        var pos = pagePosition()
         mouseview.datalogger.data.push({
-            x: x == null ? null : x + mouseview.params.offset.X,
-            y: y == null ? null : y + mouseview.params.offset.Y,
+            x: pos.x,
+            y: pos.y,
             time: window.performance.now() - mouseview.timing.startTime,
             event: event_string
         })
@@ -684,6 +777,22 @@
 
     mouseview.stopTracking = () => {
         stopTracking()
+    }
+
+    mouseview.pauseUpdating = () => {
+        pauseUpdating()
+    }
+
+    mouseview.resumeUpdating = () => {
+        resumeUpdating()
+    }
+
+    mouseview.hide = () => {
+        hide()
+    }
+
+    mouseview.show = () => {
+        show()
     }
 
     mouseview.storeData = () => {

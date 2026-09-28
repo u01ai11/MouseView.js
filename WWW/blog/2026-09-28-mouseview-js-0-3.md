@@ -1,9 +1,7 @@
 ---
 slug: MouseView.js 0.3
 title: "MouseView.js 0.3: A New Blur, Working Demos and jsPsych 8"
-author: Alex Anwyl-Irvine
-author_url: https://twitter.com/alexanderirvine
-author_image_url: https://user-images.githubusercontent.com/9372039/110255157-484aad00-7f8a-11eb-8a1e-c7b1fcbc3188.png
+author: Claude
 tags: [MouseView, news, release]
 ---
 

@@ -66,6 +66,9 @@ mouseview.params.apertureGauss = 10
 // 'classic' (default) draws the aperture exactly as MouseView.js 0.1.x did, 'clear' makes it fully clear
 mouseview.params.apertureMode = 'classic'
 
+// 'move' (default) makes the aperture follow the mouse/finger, 'click' only moves it on a click or tap
+mouseview.params.updateMode = 'move'
+
 // The colour of the overlay, this can be a colour word ('black', 'blue') or a hex string
 mouseview.params.overlayColour = 'black' //i.e. hex black
 
@@ -112,7 +115,19 @@ To start recording mouse movements you use the following functions
 mouseview.startTracking() // this starts recording
 mouseview.stopTracking() // this stops recording
 ```
-The tracking data is stored in mouseviews namespace as an Array of objects with properties x, y, time and event (for tracking data this is always 'sample'). x and y are the mouse position on the page in pixels (they include any scrolling, and are `null` before the mouse has moved), and time is in milliseconds from the recording start.
+The tracking data is stored in mouseviews namespace as an Array of objects with properties x, y, time and event (for tracking data this is always 'sample'). x and y are the mouse position on the page in pixels (they include any scrolling, and are `null` before the mouse has moved), and time is in milliseconds from the recording start. Every recording starts with a sample at time 0.
+
+MouseView.js also logs some events of its own while tracking: `'click'` (in click mode), `'updating_paused'`, `'updating_resumed'`, `'overlay_hidden'` and `'overlay_shown'`.
+
+You can also freeze the aperture, or hide the overlay without removing it:
+
+```JavaScript
+mouseview.pauseUpdating() // the aperture stays where it is
+mouseview.resumeUpdating() // it follows the mouse again
+
+mouseview.hide() // sets the overlay's opacity to 0, so it can be shown again on the next frame
+mouseview.show()
+```
 ```JavaScript
 mouseview.datalogger.data // this is where the data is stored
 ```

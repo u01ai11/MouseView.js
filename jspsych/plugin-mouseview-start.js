@@ -11,7 +11,7 @@ var jsPsychMouseviewStart = (function (jspsych) {
 
     var info = {
         name: 'mouseview-start',
-        version: '0.2.0',
+        version: '0.4.0',
         parameters: {
             /** The size of the view-window, a percentage string or a number of pixels */
             aperture_size: { type: jspsych.ParameterType.STRING, default: '5%' },
@@ -19,6 +19,8 @@ var jsPsychMouseviewStart = (function (jspsych) {
             aperture_gauss: { type: jspsych.ParameterType.INT, default: 10 },
             /** 'classic' draws the aperture as MouseView.js 0.1.x did, 'clear' makes the aperture fully clear */
             aperture_mode: { type: jspsych.ParameterType.STRING, default: 'classic' },
+            /** 'move' makes the aperture follow the mouse/finger, 'click' moves it only on a click/tap */
+            update_mode: { type: jspsych.ParameterType.STRING, default: 'move' },
             /** The colour of the overlay */
             overlay_colour: { type: jspsych.ParameterType.STRING, default: 'Black' },
             /** The opacity of the overlay, from 0 to 1 */
@@ -60,6 +62,7 @@ var jsPsychMouseviewStart = (function (jspsych) {
                 mouseview.params.apertureSize = trial.aperture_size;
                 mouseview.params.apertureGauss = trial.aperture_gauss;
                 mouseview.params.apertureMode = trial.aperture_mode;
+                mouseview.params.updateMode = trial.update_mode;
                 mouseview.params.overlayColour = trial.overlay_colour;
                 mouseview.params.overlayAlpha = trial.overlay_alpha;
                 mouseview.params.overlayGaussian = trial.overlay_gaussian;

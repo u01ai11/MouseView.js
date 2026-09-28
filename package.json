@@ -1,6 +1,6 @@
 {
   "name": "mouseviewjs",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments ",
   "main": "MouseView.js",
   "module": "MouseView.mjs",
