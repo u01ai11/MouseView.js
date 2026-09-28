@@ -134,7 +134,7 @@ gorillaTaskBuilder.onScreenStart((spreadsheet: any, rowIndex: number, screenInde
 All the code in this subsection is placed within this hook. 
 
 ### Hiding Cover
-If you are using the Gaussuan Blur overlay, you will need to hide everything on screen whilst it loads. This avoids previewing the trial in full before the blur layer is draw. We only need to create this overlay once and then use .show() and .hide() to use it. 
+You should hide everything on screen until the overlay is in place (when `overlayGaussianFunc` is called). This avoids previewing the trial in full before the overlay is drawn. If the participant's browser cannot draw the blur, `overlayGaussianFunc` is never called, so the cover stays up and MouseView.js shows its message on top (see [browser support](/docs#browser-support)). We only need to create this cover once and then use .show() and .hide() to use it. 
 
 Below we use rowIndex == 0 conditional to create this overlay on the first trial. 
 
@@ -161,7 +161,7 @@ If this display is one we want to use MouseView.js on, and the screen is at the 
     
         if (screens.includes(screenIndex)){ // if we are on one of our blurred screens
             
-            // hide contents while we take a screenshot
+            // hide contents until the overlay is ready
             var cover =$('#cover')
             cover.show()
             
@@ -339,7 +339,7 @@ gorillaTaskBuilder.onScreenStart((spreadsheet: any, rowIndex: number, screenInde
                 
             };
             
-            script.src = "https://www.mouseview.org/mouseview.js";
+            script.src = "https://www.mouseview.org/MouseView.js";
             document.head.appendChild(script)
         }
     }

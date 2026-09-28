@@ -1,2 +1,5 @@
 [build]
   base = "WWW"
+
+[build.environment]
+  NODE_VERSION = "22"

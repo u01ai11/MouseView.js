@@ -20,7 +20,7 @@
   background-attachment: fixed;
 }
         </style>
-        <script src="/MouseView.js" type="module"></script>
+        <script src="MouseView.js"></script>
         
         <script>
             window.onload = () => {
@@ -29,11 +29,21 @@
                 mouseview.params.mobileTilt = true
                 mouseview.params.mobileTiltWarn = false
                 
-                mouseview.init()
+                // iOS only allows motion sensors after a tap
+                document.getElementById('tilt').addEventListener('click', () => {
+                    mouseview.requestTiltPermission().then((granted) => {
+                        document.getElementById('tilt').remove()
+                        if (!granted) {
+                            alert('Tilt is not available, move your finger over the screen instead')
+                        }
+                        mouseview.init()
+                    })
+                })
             }
         </script>
     </head> 
-    <body> 
+ <body> 
+        <button id="tilt" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2147483647; font-size: 20px; padding: 12px 24px;">Start</button>
         
 
         

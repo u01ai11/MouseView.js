@@ -12,6 +12,6 @@ Tom and Alex will both be presenting at BeOnline 2021, with out own specialist s
 
 It will be at  4.30pm BST and include talks on the tool, it's use in sex & suicide research. 
 
-You can register at <https://beonlineconference.com/>
+You can register at [https://beonlineconference.com/](https://beonlineconference.com/)
 
 ![](/images/uploads/image.png)
