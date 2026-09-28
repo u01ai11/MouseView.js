@@ -1,13 +1,13 @@
 ---
-slug: MouseView.js 0.2
-title: "MouseView.js 0.2: A New Blur, Working Demos and jsPsych 8"
+slug: MouseView.js 0.3
+title: "MouseView.js 0.3: A New Blur, Working Demos and jsPsych 8"
 author: Alex Anwyl-Irvine
 author_url: https://twitter.com/alexanderirvine
 author_image_url: https://user-images.githubusercontent.com/9372039/110255157-484aad00-7f8a-11eb-8a1e-c7b1fcbc3188.png
 tags: [MouseView, news, release]
 ---
 
-It's been a while! MouseView.js 0.2 is out, and it's the biggest update since we launched. The headline: the Gaussian blur has been completely rebuilt, and it's finally something we're happy for you to use.
+It's been a while! Thanks to Claude Code, MouseView.js 0.3 is out, and it's the biggest update since we launched. The headline: the Gaussian blur has been completely rebuilt, and it's finally something we're happy for you to use.
 
 <!-- truncate -->
 
