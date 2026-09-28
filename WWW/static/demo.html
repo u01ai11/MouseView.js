@@ -13,16 +13,27 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <title>MouseView.js Demo</title> 
         
-        <script src="/MouseView.js" type="module"></script>
+        <script src="MouseView.js"></script>
         
         <script>
             window.onload = () => {
                 mouseview.params.overlayAlpha = 0
                 mouseview.params.apertureSize = '10%'
+                
+                // ?renderer=fallback and ?mode=clear are for testing
+                var query = new URLSearchParams(window.location.search)
+                if (query.get('renderer') === 'fallback' || query.get('renderer') === 'css') {
+                    mouseview.params.forceRenderer = query.get('renderer')
+                }
+                if (query.get('mode') === 'clear') {
+                    mouseview.params.apertureMode = 'clear'
+                }
+                mouseview.params.overlayGaussianFunc = () => {
+                    $('#renderer').text('renderer: ' + mouseview.datalogger.renderer + ', aperture: ' + mouseview.datalogger.apertureMode)
+                }
+                
                 // toggle button JQuery
                 $('#overlay_toggle').change(function() {
-                // this will contain a reference to the checkbox   
-                console.log(this)
                 if (this.checked) {
                     // the checkbox is now checked 
                     mouseview.init() // start webgazer
@@ -32,6 +43,7 @@
                     
                     // clear all the stuff we have
                     mouseview.removeAll()
+                    $('#renderer').text('')
                     
                     //disable stop and start buttons 
                     $('#start').prop('disabled', true) // disable self
@@ -123,6 +135,8 @@
         <img class= "one" src="img/cat_and_dog.jpeg" style = "width: 700px; ">
         
         <button>I'm a button</button>
+        
+        <small id="renderer" style="position: fixed; right: 8px; bottom: 8px; z-index: 9999999; color: #6c757d;"></small>
         
     </body> 
 </html>

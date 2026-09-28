@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MouseView.js with jsPsych 8</title>
+    <!-- jsPsych 7 and 8 example. For jsPsych 6 see experiment.html -->
+    <script src="https://cdn.jsdelivr.net/npm/jspsych@8.3.0/dist/index.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-html-button-response@2.1.0/dist/index.browser.min.js"></script>
+    <script src="../../jspsych/plugin-mouseview-start.js"></script>
+    <script src="../../jspsych/plugin-mouseview-stop.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jspsych@8.3.0/css/jspsych.css">
+    <style>
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; font-size: 32px; margin: 40px; }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    const jsPsych = initJsPsych({
+      on_finish: () => jsPsych.data.displayData()
+    });
+
+    const trial = (words) => ({
+      type: jsPsychHtmlButtonResponse,
+      stimulus: '<div class="grid">' + words.map((w) => '<div>' + w + '</div>').join('') + '</div>',
+      choices: ['Next'],
+      prompt: '<p>Look around, then press Next.</p>',
+      on_start: () => mouseview.logEvent('Trial Started'),
+      on_finish: () => mouseview.logEvent('Trial Ended')
+    });
+
+    jsPsych.run([
+      { type: jsPsychMouseviewStart, mouseview_url: '../../MouseView.js' },
+      trial(['apple', 'spider', 'chair', 'snake']),
+      trial(['kitten', 'wasp', 'table', 'shark']),
+      { type: jsPsychMouseviewStop }
+    ]);
+  </script>
+</html>

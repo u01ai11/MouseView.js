@@ -1,19 +1,21 @@
+// @ts-check
+
+/** @type {import('@docusaurus/types').Config} */
 module.exports = {
   title: 'MouseView.js',
   tagline: 'Eye tracking without the eyes',
   url: 'https://mouseview.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
   favicon: 'img/favicon.ico',
   organizationName: 'u01ai11', // Usually your GitHub org/user name.
   projectName: 'mouseview.js', // Usually your repo name.
   themeConfig: {
-    googleAnalytics: {
-      trackingID: 'UA-93929736-3',
-      // Optional fields.
-      anonymizeIP: false, // Should IPs be anonymized?
-    },
     navbar: {
       logo: {
         alt: 'My Site Logo',
@@ -76,6 +78,8 @@ module.exports = {
         },
         blog: {
           showReadingTime: true,
+          onUntruncatedBlogPosts: 'ignore',
+          onInlineAuthors: 'ignore',
           // Please change this to your repo.
           editUrl:
             'https://github.com/u01ai11/mouseview.js/edit/master/WWW/blog/',

@@ -1,12 +1,20 @@
 {
   "name": "mouseviewjs",
-  "version": "0.1.16",
-  "type": "module",
+  "version": "0.2.0",
   "description": "MouseView.js is a library for presenting mouse-tracking view-window tasks and experiments ",
   "main": "MouseView.js",
+  "module": "MouseView.mjs",
+  "exports": {
+    ".": {
+      "import": "./MouseView.mjs",
+      "default": "./MouseView.js"
+    },
+    "./fallback": "./MouseView-fallback.js"
+  },
   "files": [
-    "MouseView.mjs",
     "MouseView.js",
+    "MouseView.mjs",
+    "MouseView-fallback.js",
     "LICENSE"
   ],
   "repository": {
@@ -26,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/u01ai11/MouseView.js/issues"
   },
-  "homepage": "https://mouseview.org"
+  "homepage": "https://mouseview.org",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
 }

@@ -3,3 +3,12 @@
  
 /MouseView.js
   Access-Control-Allow-Origin: *
+
+/MouseView.mjs
+  Access-Control-Allow-Origin: *
+
+/MouseView-fallback.js
+  Access-Control-Allow-Origin: *
+
+/jspsych/*
+  Access-Control-Allow-Origin: *
